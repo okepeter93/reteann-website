@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reteann — AI Transformation Consultancy for Africa</title>
+  <style>
+    /* ── Reset & Base ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black:   #0B0B0B;
+      --dark:    #111111;
+      --card:    #161616;
+      --border:  #242424;
+      --gold:    #C8922A;
+      --gold-lt: #E8B44A;
+      --white:   #F5F5F0;
+      --muted:   #888888;
+      --font:    'Inter', 'Helvetica Neue', Arial, sans-serif;
+      --radius:  4px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ── Typography ───────────────────────────────────────────────── */
+    h1 { font-size: clamp(2.8rem, 6vw, 5.2rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.08; }
+    h2 { font-size: clamp(1.9rem, 3.5vw, 3rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; }
+    h3 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; }
+    h4 { font-size: 0.95rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); }
+    p  { color: #AAAAAA; line-height: 1.75; }
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+
+    /* ── Layout ───────────────────────────────────────────────────── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    section { padding: 120px 0; }
+    .divider { height: 1px; background: var(--border); margin: 0; }
+
+    /* ── NAV ──────────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(11,11,11,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 40px;
+      height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--white);
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links {
+      display: flex; gap: 36px; list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--gold);
+      color: var(--black) !important;
+      font-weight: 700 !important;
+      font-size: 0.85rem !important;
+      padding: 10px 22px;
+      border-radius: var(--radius);
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--gold-lt) !important; color: var(--black) !important; }
+
+    /* ── HERO ─────────────────────────────────────────────────────── */
+    #hero {
+      padding: 180px 0 140px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(200,146,42,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(200,146,42,0.04) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none;
+    }
+    .hero-glow {
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(200,146,42,0.09) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #hero .container { position: relative; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(200,146,42,0.1);
+      border: 1px solid rgba(200,146,42,0.3);
+      color: var(--gold);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 7px 16px;
+      border-radius: 100px;
+      margin-bottom: 2rem;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+    #hero h1 { max-width: 820px; margin-bottom: 1.8rem; }
+    #hero h1 em { color: var(--gold); font-style: normal; }
+    .hero-sub {
+      font-size: 1.15rem;
+      color: #888;
+      max-width: 540px;
+      line-height: 1.7;
+      margin-bottom: 2.8rem;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--gold);
+      color: var(--black);
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: var(--radius);
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--gold-lt); transform: translateY(-1px); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent;
+      color: var(--white);
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 14px 28px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--gold); background: rgba(200,146,42,0.05); }
+    .hero-stats {
+      margin-top: 80px;
+      display: flex; gap: 60px; flex-wrap: wrap;
+      border-top: 1px solid var(--border);
+      padding-top: 48px;
+    }
+    .stat-item {}
+    .stat-num {
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label { font-size: 0.82rem; color: var(--muted); font-weight: 500; }
+
+    /* ── SECTION HEADER ───────────────────────────────────────────── */
+    .section-header { max-width: 700px; margin-bottom: 72px; }
+    .section-header h2 { margin-bottom: 1rem; }
+    .section-header p { font-size: 1.08rem; }
+
+    /* ── WHAT WE DO / SERVICES ────────────────────────────────────── */
+    #services { background: var(--dark); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .service-card {
+      background: var(--card);
+      padding: 48px 44px;
+      position: relative;
+      transition: background 0.2s;
+    }
+    .service-card:hover { background: #1a1a1a; }
+    .tier-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(200,146,42,0.35);
+      padding: 4px 10px;
+      border-radius: 3px;
+      margin-bottom: 1.4rem;
+    }
+    .service-card h3 { color: var(--white); margin-bottom: 0.9rem; font-size: 1.3rem; }
+    .service-card p { font-size: 0.95rem; color: #888; }
+    .service-icon {
+      position: absolute;
+      top: 44px; right: 44px;
+      width: 44px; height: 44px;
+      background: rgba(200,146,42,0.08);
+      border: 1px solid rgba(200,146,42,0.2);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    /* ── INDUSTRIES ───────────────────────────────────────────────── */
+    #industries {}
+    .industries-intro {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      align-items: start;
+      margin-bottom: 72px;
+    }
+    .industries-intro .section-header { margin-bottom: 0; }
+    .industries-intro .intro-text p { font-size: 1rem; color: #888; }
+    .industry-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .industry-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 28px 28px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .industry-item:hover { border-color: var(--gold); background: rgba(200,146,42,0.04); }
+    .industry-icon { font-size: 1.6rem; margin-bottom: 12px; }
+    .industry-item h3 { font-size: 1rem; color: var(--white); margin-bottom: 6px; }
+    .industry-item p { font-size: 0.85rem; color: #777; line-height: 1.55; }
+
+    /* ── APPROACH ─────────────────────────────────────────────────── */
+    #approach { background: var(--dark); }
+    .approach-layout {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start;
+    }
+    .approach-left .section-header { margin-bottom: 40px; }
+    .approach-quote {
+      background: rgba(200,146,42,0.06);
+      border-left: 3px solid var(--gold);
+      padding: 28px 32px;
+      border-radius: 0 6px 6px 0;
+      margin-top: 40px;
+    }
+    .approach-quote p { color: #ccc; font-size: 1rem; line-height: 1.7; font-style: italic; }
+    .approach-quote cite { display: block; margin-top: 12px; font-size: 0.82rem; color: var(--gold); font-style: normal; font-weight: 600; }
+    .diff-list { display: flex; flex-direction: column; gap: 24px; }
+    .diff-item {
+      display: flex; gap: 20px; align-items: flex-start;
+      padding: 28px 28px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: border-color 0.2s;
+    }
+    .diff-item:hover { border-color: rgba(200,146,42,0.4); }
+    .diff-num {
+      flex-shrink: 0;
+      width: 32px; height: 32px;
+      background: rgba(200,146,42,0.12);
+      border: 1px solid rgba(200,146,42,0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .diff-body h3 { font-size: 1rem; color: var(--white); margin-bottom: 5px; }
+    .diff-body p { font-size: 0.88rem; color: #777; line-height: 1.6; }
+
+    /* ── CASE STUDIES ─────────────────────────────────────────────── */
+    #case-studies {}
+    .cs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .cs-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 52px 48px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .cs-card:hover { border-color: rgba(200,146,42,0.5); }
+    .cs-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-lt));
+    }
+    .cs-tag {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.4rem;
+    }
+    .cs-card h3 { font-size: 1.55rem; color: var(--white); margin-bottom: 1rem; font-weight: 700; letter-spacing: -0.02em; }
+    .cs-card p { font-size: 0.95rem; color: #888; line-height: 1.7; margin-bottom: 1.8rem; }
+    .cs-outcomes { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .cs-outcomes li {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.88rem; color: #aaa;
+    }
+    .cs-outcomes li::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .cs-coming {
+      background: rgba(200,146,42,0.04);
+      border: 1px dashed rgba(200,146,42,0.25);
+    }
+    .cs-coming::before { background: rgba(200,146,42,0.3); }
+    .cs-coming h3 { color: #666; }
+
+    /* ── CAREERS ──────────────────────────────────────────────────── */
+    #careers { background: var(--dark); }
+    .careers-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .role-list { display: flex; flex-direction: column; gap: 12px; }
+    .role-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 24px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: border-color 0.2s, background 0.2s;
+      cursor: pointer;
+    }
+    .role-item:hover { border-color: var(--gold); background: rgba(200,146,42,0.04); }
+    .role-title { font-size: 0.95rem; font-weight: 600; color: var(--white); }
+    .role-type { font-size: 0.78rem; color: var(--muted); margin-top: 3px; }
+    .role-arrow { color: var(--gold); font-size: 1.1rem; }
+
+    /* ── THOUGHT LEADERSHIP ───────────────────────────────────────── */
+    #thought-leadership {}
+    .tl-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .tl-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 36px 32px;
+      transition: border-color 0.2s;
+    }
+    .tl-card:hover { border-color: rgba(200,146,42,0.4); }
+    .tl-tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .tl-card h3 { font-size: 1.05rem; color: var(--white); margin-bottom: 0.8rem; line-height: 1.45; }
+    .tl-card p { font-size: 0.88rem; color: #777; line-height: 1.65; margin-bottom: 1.4rem; }
+    .tl-link { font-size: 0.82rem; color: var(--gold); font-weight: 600; display: flex; align-items: center; gap: 5px; }
+
+    /* ── CTA BANNER ───────────────────────────────────────────────── */
+    #cta {
+      background: var(--dark);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .cta-inner {
+      text-align: center;
+      padding: 100px 0;
+    }
+    .cta-inner h2 { max-width: 700px; margin: 0 auto 1.4rem; }
+    .cta-inner p { max-width: 500px; margin: 0 auto 2.8rem; font-size: 1.05rem; }
+    .cta-actions { display: flex; gap: 16px; justify-content: center; }
+
+    /* ── FOOTER ───────────────────────────────────────────────────── */
+    footer {
+      padding: 72px 0 48px;
+      border-top: 1px solid var(--border);
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
+    }
+    .footer-brand .nav-logo { font-size: 1.5rem; margin-bottom: 1rem; }
+    .footer-brand p { font-size: 0.88rem; color: #666; line-height: 1.7; max-width: 300px; }
+    .footer-col h4 { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #555; margin-bottom: 1.2rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a { font-size: 0.88rem; color: #666; transition: color 0.2s; }
+    .footer-col ul a:hover { color: var(--white); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+    .footer-bottom p { font-size: 0.8rem; color: #444; }
+    .footer-geo {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.8rem; color: #444;
+    }
+
+    /* ── Responsive ───────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .container { padding: 0 24px; }
+      section { padding: 80px 0; }
+      .services-grid,
+      .cs-grid,
+      .careers-layout,
+      .approach-layout,
+      .industries-intro,
+      .footer-top { grid-template-columns: 1fr; gap: 40px; }
+      .industry-list { grid-template-columns: repeat(2, 1fr); }
+      .tl-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 36px; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 520px) {
+      .industry-list { grid-template-columns: 1fr; }
+      .cta-actions { flex-direction: column; align-items: center; }
+      .hero-actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">Ret<span>eann</span></a>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#industries">Industries</a></li>
+        <li><a href="#case-studies">Case Studies</a></li>
+        <li><a href="#careers">Careers</a></li>
+        <li><a href="#thought-leadership">Insights</a></li>
+        <li><a href="#cta" class="nav-cta">Work With Us</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="container">
+      <div class="hero-tag">AI Transformation Consultancy · Africa</div>
+      <h1>We reinvent Africa's<br /><em>legacy businesses</em><br />for the AI era.</h1>
+      <p class="hero-sub">
+        From digital foundations to full AI-native rebuilds — Reteann is the
+        strategic partner African enterprises trust to transform decades of legacy into
+        competitive advantage.
+      </p>
+      <div class="hero-actions">
+        <a href="#cta" class="btn-primary">Start Your Transformation →</a>
+        <a href="#case-studies" class="btn-secondary">View Case Studies</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">20–60</div>
+          <div class="stat-label">Years of legacy systems we modernise</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">Pan-African</div>
+          <div class="stat-label">Reach — Nigeria, Kenya &amp; beyond</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">4 Tiers</div>
+          <div class="stat-label">End-to-end transformation capability</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">AI-Native</div>
+          <div class="stat-label">Strategy-first methodology</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── SERVICES ── -->
+  <section id="services">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">What We Do</span>
+        <h2>Transformation built in tiers. Depth that compounds.</h2>
+        <p>
+          Most firms stop at digital presence. Reteann's ambition is Tier 3 and Tier 4 —
+          where genuine transformation happens and where the competitive moat is widest.
+        </p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">🌐</div>
+          <div class="tier-badge">Tier 1</div>
+          <h3>Digital Foundation</h3>
+          <p>
+            Web presence, domain setup, hosting, GitHub-based deployment, and basic
+            online infrastructure. The essential starting point every legacy business
+            needs before anything else can scale.
+          </p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🤖</div>
+          <div class="tier-badge">Tier 2</div>
+          <h3>AI Integration</h3>
+          <p>
+            WhatsApp Business integration, agentic social media management, and
+            AI-powered customer engagement. Your business becomes always-on,
+            responsive, and intelligent.
+          </p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">📐</div>
+          <div class="tier-badge">Tier 3</div>
+          <h3>Strategic Transformation</h3>
+          <p>
+            Full AI strategy documents, technology deployment roadmaps, legacy systems
+            analysis, and modernisation plans. The thinking and planning that precedes
+            meaningful change.
+          </p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">⚙️</div>
+          <div class="tier-badge">Tier 4</div>
+          <h3>AI-Native Rebuild</h3>
+          <p>
+            Rebuilding core business systems — operations, vendor management, customer
+            platforms — from the ground up with AI-native architecture. This is the
+            full reinvention.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── INDUSTRIES ── -->
+  <section id="industries">
+    <div class="container">
+      <div class="industries-intro">
+        <div class="section-header">
+          <span class="eyebrow">Industries We Serve</span>
+          <h2>Where legacy runs deepest, opportunity is largest.</h2>
+        </div>
+        <div class="intro-text">
+          <p>
+            We focus on African industries with high legacy system density — sectors
+            where profitable, operational businesses have never undergone meaningful
+            technological transformation. These are the environments where Reteann's
+            depth creates the most value.
+          </p>
+        </div>
+      </div>
+      <div class="industry-list">
+        <div class="industry-item">
+          <div class="industry-icon">✈️</div>
+          <h3>Aviation</h3>
+          <p>Complex, interconnected software ecosystems ripe for AI-native reinvention.</p>
+        </div>
+        <div class="industry-item">
+          <div class="industry-icon">🏭</div>
+          <h3>Manufacturing</h3>
+          <p>Decades-old ERP systems and operational workflows ready for modernisation.</p>
+        </div>
+        <div class="industry-item">
+          <div class="industry-icon">🚚</div>
+          <h3>Logistics</h3>
+          <p>Route optimisation, vendor management, and customer platforms reimagined.</p>
+        </div>
+        <div class="industry-item">
+          <div class="industry-icon">🏦</div>
+          <h3>Financial Services</h3>
+          <p>Legacy banking and insurance infrastructure transformed for the AI era.</p>
+        </div>
+        <div class="industry-item">
+          <div class="industry-icon">🔧</div>
+          <h3>Engineering &amp; Construction</h3>
+          <p>Project management, procurement, and client systems rebuilt intelligently.</p>
+        </div>
+        <div class="industry-item">
+          <div class="industry-icon">🛒</div>
+          <h3>Retail &amp; Distribution</h3>
+          <p>Supply chain, inventory, and customer engagement transformed end-to-end.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── APPROACH ── -->
+  <section id="approach">
+    <div class="container">
+      <div class="approach-layout">
+        <div class="approach-left">
+          <div class="section-header">
+            <span class="eyebrow">Our Approach</span>
+            <h2>Strategy first. Always.</h2>
+            <p>
+              AI implementation without a strategy is expensive noise. Reteann leads with
+              the thinking — rigorous analysis of your legacy systems, your market, and
+              your objectives — before a single line of code is written.
+            </p>
+          </div>
+          <div class="approach-quote">
+            <p>
+              "The vast majority of African enterprises are running on systems that are
+              20 to 60 years old. They have never undergone meaningful technological
+              transformation. We are the firm that reinvents them."
+            </p>
+            <cite>— Reteann Strategy Document, 2025</cite>
+          </div>
+        </div>
+        <div class="diff-list">
+          <div class="diff-item">
+            <div class="diff-num">01</div>
+            <div class="diff-body">
+              <h3>Africa-First Focus</h3>
+              <p>Deep understanding of local market dynamics, regulatory environments, and client realities across the continent.</p>
+            </div>
+          </div>
+          <div class="diff-item">
+            <div class="diff-num">02</div>
+            <div class="diff-body">
+              <h3>AI Strategy as the Primary Offering</h3>
+              <p>Not just implementation — the rigorous planning and thinking that precedes it. Strategy without execution is theory; execution without strategy is chaos.</p>
+            </div>
+          </div>
+          <div class="diff-item">
+            <div class="diff-num">03</div>
+            <div class="diff-body">
+              <h3>End-to-End Capability</h3>
+              <p>From a business's first web presence to a full AI-native system rebuild — one partner, the full journey.</p>
+            </div>
+          </div>
+          <div class="diff-item">
+            <div class="diff-num">04</div>
+            <div class="diff-body">
+              <h3>Credibility Through Live Work</h3>
+              <p>Our case studies are not hypothetical. Ofeimu Engineering and Gratia AI are live engagements proving the model.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── CASE STUDIES ── -->
+  <section id="case-studies">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Case Studies</span>
+        <h2>The model, proven in practice.</h2>
+        <p>Real engagements. Real transformation. These are the anchor case studies that define what Reteann does.</p>
+      </div>
+      <div class="cs-grid">
+        <div class="cs-card">
+          <div class="cs-tag">Engineering · Nigeria · Ongoing</div>
+          <h3>Ofeimu Engineering</h3>
+          <p>
+            A business that operated successfully for over 25 years with no meaningful digital
+            transformation. Reteann is delivering a full AI-native reinvention — starting from
+            web presence and moving into deep AI integration across operations, vendor
+            management, and customer platforms.
+          </p>
+          <ul class="cs-outcomes">
+            <li>Digital foundation built from scratch — web, domain, hosting, deployment pipeline</li>
+            <li>AI strategy document and deployment roadmap in development</li>
+            <li>Template for Reteann's full-tier engagement model</li>
+          </ul>
+        </div>
+        <div class="cs-card">
+          <div class="cs-tag">AI Platform · Active Engagement</div>
+          <h3>Gratia AI</h3>
+          <p>
+            An active AI platform engagement demonstrating Reteann's capacity to work across
+            multiple client types simultaneously — from legacy enterprise transformation to
+            emerging AI-native ventures.
+          </p>
+          <ul class="cs-outcomes">
+            <li>Strategic advisory and AI deployment planning</li>
+            <li>Live anchor case study establishing Reteann's cross-sector credibility</li>
+            <li>Project scope and roadmap under active development</li>
+          </ul>
+        </div>
+        <div class="cs-card cs-coming">
+          <div class="cs-tag">Coming Soon</div>
+          <h3>Next Case Study</h3>
+          <p>
+            Reteann is actively expanding its client base across financial services, logistics,
+            and manufacturing. The next anchor case study is in formation.
+          </p>
+          <ul class="cs-outcomes">
+            <li>Targeting high legacy system density sectors</li>
+            <li>Pan-African expansion — Kenya and beyond</li>
+          </ul>
+        </div>
+        <div class="cs-card cs-coming" style="display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; min-height:300px;">
+          <div style="font-size:2.4rem; margin-bottom:16px; opacity:0.3;">+</div>
+          <h3 style="color:#555; font-size:1.1rem; margin-bottom:8px;">Your business could be here.</h3>
+          <p style="font-size:0.88rem; color:#555; margin-bottom:24px;">We're selectively onboarding new clients across Africa.</p>
+          <a href="#cta" class="btn-primary" style="font-size:0.85rem; padding:12px 22px;">Start a Conversation</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── THOUGHT LEADERSHIP ── -->
+  <section id="thought-leadership">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Insights</span>
+        <h2>Original thinking on AI adoption in African enterprises.</h2>
+        <p>Reteann publishes perspectives on the challenges and opportunities of AI transformation across the continent.</p>
+      </div>
+      <div class="tl-grid">
+        <div class="tl-card">
+          <div class="tl-tag">Strategy</div>
+          <h3>Why African Enterprises Are Sitting on the Biggest AI Opportunity in the World</h3>
+          <p>Decades of deferred modernisation have created a unique window. Here's why legacy density is actually an advantage.</p>
+          <div class="tl-link">Read More →</div>
+        </div>
+        <div class="tl-card">
+          <div class="tl-tag">Deployment</div>
+          <h3>The Case for Strategy Before Software: How We Approach AI Roadmapping</h3>
+          <p>Most failed AI projects share one characteristic — they started with tools, not thinking. Our methodology explained.</p>
+          <div class="tl-link">Read More →</div>
+        </div>
+        <div class="tl-card">
+          <div class="tl-tag">Operations</div>
+          <h3>From Legacy to AI-Native: The Ofeimu Engineering Transformation Story</h3>
+          <p>A 25-year-old business, no digital infrastructure, and a full AI-native reinvention. What we built and why.</p>
+          <div class="tl-link">Read More →</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── CAREERS ── -->
+  <section id="careers">
+    <div class="container">
+      <div class="careers-layout">
+        <div>
+          <span class="eyebrow">Careers</span>
+          <h2>Build the future of African business.</h2>
+          <p style="margin-top:1rem; margin-bottom:2rem;">
+            We are building a team of the best AI strategy and software engineering
+            talent on the continent. If you want to work on problems that matter —
+            at the intersection of legacy industry and cutting-edge AI — Reteann is
+            where you belong.
+          </p>
+          <a href="#cta" class="btn-secondary">Express Interest →</a>
+        </div>
+        <div>
+          <div class="role-list">
+            <div class="role-item">
+              <div>
+                <div class="role-title">AI Strategy Consultant</div>
+                <div class="role-type">Full-time · Pan-African (Remote-first)</div>
+              </div>
+              <div class="role-arrow">→</div>
+            </div>
+            <div class="role-item">
+              <div>
+                <div class="role-title">Software Engineer (AI-Native)</div>
+                <div class="role-type">Full-time · Lagos / Nairobi / Remote</div>
+              </div>
+              <div class="role-arrow">→</div>
+            </div>
+            <div class="role-item">
+              <div>
+                <div class="role-title">Legacy Systems Analyst</div>
+                <div class="role-type">Full-time · Nigeria</div>
+              </div>
+              <div class="role-arrow">→</div>
+            </div>
+            <div class="role-item">
+              <div>
+                <div class="role-title">Engagement Manager</div>
+                <div class="role-type">Full-time · Client-facing</div>
+              </div>
+              <div class="role-arrow">→</div>
+            </div>
+            <div class="role-item">
+              <div>
+                <div class="role-title">Business Development (Africa)</div>
+                <div class="role-type">Full-time · Pan-African</div>
+              </div>
+              <div class="role-arrow">→</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── CTA ── -->
+  <section id="cta">
+    <div class="container">
+      <div class="cta-inner">
+        <span class="eyebrow">Work With Us</span>
+        <h2>Your transformation starts with a conversation.</h2>
+        <p>We're selectively onboarding new clients across Africa. If your business has deep legacy infrastructure and ambitions for the AI era, we want to hear from you.</p>
+        <div class="cta-actions">
+          <a href="mailto:hello@reteann.com" class="btn-primary">Get In Touch →</a>
+          <a href="#services" class="btn-secondary">Explore Our Services</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="nav-logo">Ret<span style="color:var(--gold)">eann</span></div>
+          <p>Africa's leading AI-native transformation consultancy. Helping legacy businesses develop and deploy cutting-edge AI strategies across the continent.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#services">Digital Foundation</a></li>
+            <li><a href="#services">AI Integration</a></li>
+            <li><a href="#services">Strategic Transformation</a></li>
+            <li><a href="#services">AI-Native Rebuild</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#case-studies">Case Studies</a></li>
+            <li><a href="#thought-leadership">Insights</a></li>
+            <li><a href="#careers">Careers</a></li>
+            <li><a href="#cta">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Industries</h4>
+          <ul>
+            <li><a href="#industries">Aviation</a></li>
+            <li><a href="#industries">Manufacturing</a></li>
+            <li><a href="#industries">Logistics</a></li>
+            <li><a href="#industries">Financial Services</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Reteann. All rights reserved.</p>
+        <div class="footer-geo">
+          <span>📍</span>
+          <span>Headquartered in Nigeria · Operating Pan-Africa</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
