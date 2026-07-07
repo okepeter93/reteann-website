@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Reteann — AI Strategy, Adoption &amp; Economics for Africa</title>
+  <title>Reteann — AI Transformation Consultancy for Africa</title>
   <style>
+    /* ── Reset & Base ─────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --black:   #0B0B0B;
@@ -15,360 +16,481 @@
       --gold-lt: #E8B44A;
       --white:   #F5F5F0;
       --muted:   #888888;
-      --green:   #5CB87A;
-      --red:     #E07070;
       --font:    'Inter', 'Helvetica Neue', Arial, sans-serif;
       --radius:  4px;
     }
     html { scroll-behavior: smooth; }
-    body { background: var(--black); color: var(--white); font-family: var(--font); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
     a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
 
+    /* ── Typography ───────────────────────────────────────────────── */
     h1 { font-size: clamp(2.8rem, 6vw, 5.2rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.08; }
     h2 { font-size: clamp(1.9rem, 3.5vw, 3rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; }
-    h3 { font-size: 1.2rem; font-weight: 600; letter-spacing: -0.01em; }
+    h3 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; }
+    h4 { font-size: 0.95rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); }
     p  { color: #AAAAAA; line-height: 1.75; }
-    .eyebrow { display: inline-block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
 
+    /* ── Layout ───────────────────────────────────────────────────── */
     .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
     section { padding: 120px 0; }
-    .divider { height: 1px; background: var(--border); }
+    .divider { height: 1px; background: var(--border); margin: 0; }
 
-    /* NAV */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(11,11,11,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
-    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 40px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
-    .nav-logo { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.04em; color: var(--white); }
+    /* ── NAV ──────────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(11,11,11,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 40px;
+      height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--white);
+    }
     .nav-logo span { color: var(--gold); }
-    .nav-links { display: flex; gap: 30px; list-style: none; }
-    .nav-links a { font-size: 0.88rem; font-weight: 500; color: var(--muted); transition: color 0.2s; }
+    .nav-links {
+      display: flex; gap: 36px; list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
     .nav-links a:hover { color: var(--white); }
-    .nav-links a.active { color: var(--white); border-bottom: 2px solid var(--gold); padding-bottom: 2px; }
-    .nav-cta { background: var(--gold); color: var(--black) !important; font-weight: 700 !important; font-size: 0.85rem !important; padding: 10px 22px; border-radius: var(--radius); transition: background 0.2s !important; }
-    .nav-cta:hover { background: var(--gold-lt) !important; }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
-    .hamburger span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
-    .mobile-menu { display: none; position: fixed; top: 64px; left: 0; right: 0; background: rgba(11,11,11,0.98); border-bottom: 1px solid var(--border); z-index: 99; padding: 20px 24px; flex-direction: column; gap: 4px; }
-    .mobile-menu a { display: block; font-size: 1rem; font-weight: 500; color: var(--muted); padding: 12px 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
-    .mobile-menu a:last-child { border-bottom: none; }
-    .mobile-menu a:hover, .mobile-menu a.active { color: var(--white); }
-    .mobile-menu.open { display: flex; }
+    .nav-cta {
+      background: var(--gold);
+      color: var(--black) !important;
+      font-weight: 700 !important;
+      font-size: 0.85rem !important;
+      padding: 10px 22px;
+      border-radius: var(--radius);
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--gold-lt) !important; color: var(--black) !important; }
 
-    /* HERO */
-    #hero { padding: 180px 0 140px; position: relative; overflow: hidden; }
-    .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(200,146,42,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(200,146,42,0.04) 1px, transparent 1px); background-size: 80px 80px; pointer-events: none; }
-    .hero-glow { position: absolute; top: -200px; right: -200px; width: 700px; height: 700px; background: radial-gradient(circle, rgba(200,146,42,0.09) 0%, transparent 70%); pointer-events: none; }
+    /* ── HERO ─────────────────────────────────────────────────────── */
+    #hero {
+      padding: 180px 0 140px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(200,146,42,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(200,146,42,0.04) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none;
+    }
+    .hero-glow {
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(200,146,42,0.09) 0%, transparent 70%);
+      pointer-events: none;
+    }
     #hero .container { position: relative; }
-    .hero-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(200,146,42,0.1); border: 1px solid rgba(200,146,42,0.3); color: var(--gold); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 7px 16px; border-radius: 100px; margin-bottom: 2rem; }
-    .hero-tag::before { content: ''; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(200,146,42,0.1);
+      border: 1px solid rgba(200,146,42,0.3);
+      color: var(--gold);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 7px 16px;
+      border-radius: 100px;
+      margin-bottom: 2rem;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
     #hero h1 { max-width: 820px; margin-bottom: 1.8rem; }
     #hero h1 em { color: var(--gold); font-style: normal; }
-    .hero-sub { font-size: 1.15rem; color: #888; max-width: 600px; line-height: 1.75; margin-bottom: 2.8rem; }
+    .hero-sub {
+      font-size: 1.15rem;
+      color: #888;
+      max-width: 540px;
+      line-height: 1.7;
+      margin-bottom: 2.8rem;
+    }
     .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
-    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--gold); color: var(--black); font-size: 0.9rem; font-weight: 700; padding: 14px 28px; border-radius: var(--radius); transition: background 0.2s, transform 0.15s; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--gold);
+      color: var(--black);
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: var(--radius);
+      transition: background 0.2s, transform 0.15s;
+    }
     .btn-primary:hover { background: var(--gold-lt); transform: translateY(-1px); }
-    .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--white); font-size: 0.9rem; font-weight: 600; padding: 14px 28px; border-radius: var(--radius); border: 1px solid var(--border); transition: border-color 0.2s, background 0.2s; }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent;
+      color: var(--white);
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 14px 28px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, background 0.2s;
+    }
     .btn-secondary:hover { border-color: var(--gold); background: rgba(200,146,42,0.05); }
-    .hero-stats { margin-top: 80px; display: flex; gap: 60px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 48px; }
-    .stat-num { font-size: 2.4rem; font-weight: 800; letter-spacing: -0.04em; color: var(--white); line-height: 1; margin-bottom: 6px; }
+    .hero-stats {
+      margin-top: 80px;
+      display: flex; gap: 60px; flex-wrap: wrap;
+      border-top: 1px solid var(--border);
+      padding-top: 48px;
+    }
+    .stat-item {}
+    .stat-num {
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
     .stat-label { font-size: 0.82rem; color: var(--muted); font-weight: 500; }
 
-    /* THREE PILLARS */
-    #pillars { background: var(--dark); padding: 80px 0; }
-    .pillars-label { text-align: center; margin-bottom: 48px; }
-    .pillars-label p { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #555; }
-    .pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-    .pillar-card { background: var(--card); padding: 48px 40px; text-align: center; position: relative; }
-    .pillar-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold-lt)); }
-    .pillar-num { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
-    .pillar-icon { font-size: 2rem; margin-bottom: 16px; }
-    .pillar-card h3 { font-size: 1.2rem; color: var(--white); margin-bottom: 10px; }
-    .pillar-card p { font-size: 0.88rem; color: #777; line-height: 1.65; }
-    .pillar-ref { margin-top: 16px; font-size: 0.75rem; color: #444; font-style: italic; }
-
-    /* PROBLEM STATEMENT */
-    #problem { padding: 100px 0; }
-    .problem-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-    .problem-left h2 { margin-bottom: 1.2rem; }
-    .problem-left h2 em { color: var(--gold); font-style: normal; }
-    .problem-left > p { font-size: 1.05rem; margin-bottom: 2rem; }
-    .problem-cards { display: flex; flex-direction: column; gap: 14px; margin-top: 32px; }
-    .problem-card { display: flex; gap: 16px; align-items: flex-start; padding: 22px 24px; background: var(--card); border: 1px solid var(--border); border-radius: 6px; }
-    .problem-card-x { width: 28px; height: 28px; flex-shrink: 0; background: rgba(224,112,112,0.12); border: 1px solid rgba(224,112,112,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: var(--red); font-weight: 700; }
-    .problem-card strong { display: block; font-size: 0.92rem; color: var(--white); margin-bottom: 3px; }
-    .problem-card p { font-size: 0.85rem; color: #777; line-height: 1.55; }
-    .problem-right { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 44px; position: relative; overflow: hidden; }
-    .problem-right::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold-lt)); }
-    .problem-right-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
-    .visibility-gap { display: flex; flex-direction: column; gap: 0; }
-    .vg-item { padding: 18px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-    .vg-item:last-child { border-bottom: none; }
-    .vg-question { font-size: 0.88rem; color: #aaa; }
-    .vg-status { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; }
-    .vg-unknown { background: rgba(224,112,112,0.1); color: var(--red); border: 1px solid rgba(224,112,112,0.25); }
-    .vg-solved { background: rgba(92,184,122,0.1); color: var(--green); border: 1px solid rgba(92,184,122,0.25); }
-    .problem-right-footer { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 0.88rem; color: var(--gold); font-weight: 600; }
-
-    /* SECTION HEADER */
-    .section-header { max-width: 720px; margin-bottom: 72px; }
+    /* ── SECTION HEADER ───────────────────────────────────────────── */
+    .section-header { max-width: 700px; margin-bottom: 72px; }
     .section-header h2 { margin-bottom: 1rem; }
-    .section-header p { font-size: 1.05rem; }
+    .section-header p { font-size: 1.08rem; }
 
-    /* SERVICES */
+    /* ── WHAT WE DO / SERVICES ────────────────────────────────────── */
     #services { background: var(--dark); }
-    .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; border: 2px solid var(--border); border-radius: 8px; overflow: hidden; }
-    .service-card { background: var(--card); padding: 48px 44px; position: relative; transition: background 0.2s; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .service-card {
+      background: var(--card);
+      padding: 48px 44px;
+      position: relative;
+      transition: background 0.2s;
+    }
     .service-card:hover { background: #1a1a1a; }
-    .tier-badge { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); border: 1px solid rgba(200,146,42,0.35); padding: 4px 10px; border-radius: 3px; margin-bottom: 1.4rem; }
+    .tier-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(200,146,42,0.35);
+      padding: 4px 10px;
+      border-radius: 3px;
+      margin-bottom: 1.4rem;
+    }
     .service-card h3 { color: var(--white); margin-bottom: 0.9rem; font-size: 1.3rem; }
     .service-card p { font-size: 0.95rem; color: #888; }
-    .service-icon { position: absolute; top: 44px; right: 44px; width: 44px; height: 44px; background: rgba(200,146,42,0.08); border: 1px solid rgba(200,146,42,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+    .service-icon {
+      position: absolute;
+      top: 44px; right: 44px;
+      width: 44px; height: 44px;
+      background: rgba(200,146,42,0.08);
+      border: 1px solid rgba(200,146,42,0.2);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
 
-    /* AI PER ROLE */
-    #ai-per-role {}
-    .apr-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-    .apr-pill { display: inline-flex; align-items: center; gap: 6px; background: rgba(200,146,42,0.08); border: 1px solid rgba(200,146,42,0.25); color: var(--gold); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 12px; border-radius: 100px; margin-bottom: 1.4rem; }
-    .apr-section-header { margin-bottom: 36px; }
-    .apr-section-header h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); margin-bottom: 1rem; }
-    .apr-section-header p { font-size: 1rem; color: #888; }
-    .apr-targets { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
-    .apr-target { display: flex; gap: 14px; align-items: flex-start; padding: 18px 20px; background: var(--card); border: 1px solid var(--border); border-radius: 6px; }
-    .apr-target-icon { width: 28px; height: 28px; flex-shrink: 0; background: rgba(200,146,42,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
-    .apr-target strong { display: block; font-size: 0.88rem; color: var(--white); margin-bottom: 3px; }
-    .apr-target p { font-size: 0.85rem; color: #777; line-height: 1.55; }
-    .role-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .role-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 26px 22px; transition: border-color 0.2s, background 0.2s; }
-    .role-card:hover { border-color: var(--gold); background: rgba(200,146,42,0.04); }
-    .role-card-icon { font-size: 1.4rem; margin-bottom: 10px; }
-    .role-card h3 { font-size: 0.9rem; color: var(--white); margin-bottom: 5px; }
-    .role-card p { font-size: 0.8rem; color: #777; line-height: 1.55; }
-    .role-card-cpo { margin-top: 12px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gold); }
-
-    /* UNIT ECONOMICS */
-    #unit-economics { background: var(--dark); }
-    .ue-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-    .ue-system { display: flex; flex-direction: column; gap: 0; margin-top: 40px; }
-    .ue-step { display: flex; gap: 16px; padding-bottom: 28px; position: relative; }
-    .ue-step:last-child { padding-bottom: 0; }
-    .ue-step-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
-    .ue-step-num { width: 32px; height: 32px; border-radius: 50%; background: rgba(200,146,42,0.12); border: 1px solid rgba(200,146,42,0.3); display: flex; align-items: center; justify-content: center; font-size: 0.78rem; font-weight: 700; color: var(--gold); flex-shrink: 0; }
-    .ue-step-line { width: 1px; flex: 1; background: rgba(200,146,42,0.2); margin-top: 6px; }
-    .ue-step:last-child .ue-step-line { display: none; }
-    .ue-step-body { padding-top: 4px; }
-    .ue-step-body h3 { font-size: 0.95rem; color: var(--white); margin-bottom: 4px; }
-    .ue-step-body p { font-size: 0.85rem; color: #777; line-height: 1.6; }
-    .ue-visual { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 40px; position: relative; overflow: hidden; }
-    .ue-visual::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold-lt)); }
-    .ue-visual-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 28px; }
-    .ue-metrics { display: flex; flex-direction: column; gap: 0; }
-    .ue-metric { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--border); }
-    .ue-metric:last-child { border-bottom: none; }
-    .ue-metric-label { font-size: 0.82rem; color: #777; }
-    .ue-metric-value { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; color: var(--white); }
-    .ue-metric-value.green { color: var(--green); }
-    .ue-metric-value.red { color: var(--red); }
-    .ue-footer { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 0.8rem; color: #555; }
-
-    /* VALUE-ADD */
-    #value-add {}
-    .va-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .va-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 40px 36px; transition: border-color 0.2s; }
-    .va-card:hover { border-color: rgba(200,146,42,0.5); }
-    .va-card-num { font-size: 3rem; font-weight: 800; letter-spacing: -0.04em; color: rgba(200,146,42,0.12); line-height: 1; margin-bottom: 20px; }
-    .va-card h3 { font-size: 1.1rem; color: var(--white); margin-bottom: 0.8rem; }
-    .va-card p { font-size: 0.88rem; color: #777; line-height: 1.65; }
-
-    /* MOAT */
-    #moat { background: var(--dark); padding: 100px 0; }
-    .moat-inner { max-width: 900px; margin: 0 auto; }
-    .moat-header { text-align: center; margin-bottom: 60px; }
-    .moat-header h2 { margin-bottom: 1rem; }
-    .moat-header p { font-size: 1.05rem; max-width: 600px; margin: 0 auto; }
-    .moat-table { width: 100%; border-collapse: collapse; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
-    .moat-table th { background: #0e0e0e; padding: 16px 24px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #555; text-align: left; border-bottom: 1px solid var(--border); }
-    .moat-table th:not(:first-child) { text-align: center; }
-    .moat-table td { padding: 16px 24px; font-size: 0.9rem; color: #888; border-bottom: 1px solid rgba(36,36,36,0.6); background: var(--card); }
-    .moat-table tr:last-child td { border-bottom: none; }
-    .moat-table td:first-child { color: var(--white); font-weight: 500; }
-    .moat-table td:not(:first-child) { text-align: center; }
-    .moat-check { color: var(--green); font-size: 1.1rem; }
-    .moat-x { color: #444; font-size: 1.1rem; }
-    .moat-reteann { background: rgba(200,146,42,0.04) !important; }
-    .moat-table th.col-reteann { color: var(--gold); }
-
-    /* INDUSTRIES */
+    /* ── INDUSTRIES ───────────────────────────────────────────────── */
     #industries {}
-    .industries-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-bottom: 72px; }
+    .industries-intro {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      align-items: start;
+      margin-bottom: 72px;
+    }
     .industries-intro .section-header { margin-bottom: 0; }
-    .industry-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .industry-item { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 28px; transition: border-color 0.2s, background 0.2s; }
+    .industries-intro .intro-text p { font-size: 1rem; color: #888; }
+    .industry-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .industry-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 28px 28px;
+      transition: border-color 0.2s, background 0.2s;
+    }
     .industry-item:hover { border-color: var(--gold); background: rgba(200,146,42,0.04); }
     .industry-icon { font-size: 1.6rem; margin-bottom: 12px; }
     .industry-item h3 { font-size: 1rem; color: var(--white); margin-bottom: 6px; }
     .industry-item p { font-size: 0.85rem; color: #777; line-height: 1.55; }
 
-    /* APPROACH */
+    /* ── APPROACH ─────────────────────────────────────────────────── */
     #approach { background: var(--dark); }
-    .approach-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start; }
-    .founding-story { background: rgba(200,146,42,0.04); border: 1px solid rgba(200,146,42,0.15); border-radius: 8px; padding: 36px; margin-top: 40px; }
-    .founding-story-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
-    .timeline-item { display: flex; gap: 16px; padding-bottom: 24px; }
-    .timeline-item:last-child { padding-bottom: 0; }
-    .timeline-year { flex-shrink: 0; width: 52px; font-size: 0.78rem; font-weight: 700; color: var(--gold); padding-top: 2px; }
-    .timeline-dot { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; }
-    .timeline-dot-circle { width: 10px; height: 10px; border: 2px solid var(--gold); border-radius: 50%; background: var(--black); margin-top: 4px; }
-    .timeline-dot-line { width: 1px; flex: 1; background: rgba(200,146,42,0.25); margin-top: 4px; min-height: 20px; }
-    .timeline-item:last-child .timeline-dot-line { display: none; }
-    .timeline-text { font-size: 0.85rem; color: #888; line-height: 1.6; }
-    .timeline-text strong { color: #ccc; display: block; margin-bottom: 2px; }
-    .diff-list { display: flex; flex-direction: column; gap: 18px; }
-    .diff-item { display: flex; gap: 20px; align-items: flex-start; padding: 22px 26px; background: var(--card); border: 1px solid var(--border); border-radius: 6px; transition: border-color 0.2s; }
+    .approach-layout {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start;
+    }
+    .approach-left .section-header { margin-bottom: 40px; }
+    .approach-quote {
+      background: rgba(200,146,42,0.06);
+      border-left: 3px solid var(--gold);
+      padding: 28px 32px;
+      border-radius: 0 6px 6px 0;
+      margin-top: 40px;
+    }
+    .approach-quote p { color: #ccc; font-size: 1rem; line-height: 1.7; font-style: italic; }
+    .approach-quote cite { display: block; margin-top: 12px; font-size: 0.82rem; color: var(--gold); font-style: normal; font-weight: 600; }
+    .diff-list { display: flex; flex-direction: column; gap: 24px; }
+    .diff-item {
+      display: flex; gap: 20px; align-items: flex-start;
+      padding: 28px 28px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: border-color 0.2s;
+    }
     .diff-item:hover { border-color: rgba(200,146,42,0.4); }
-    .diff-num { flex-shrink: 0; width: 32px; height: 32px; background: rgba(200,146,42,0.12); border: 1px solid rgba(200,146,42,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; color: var(--gold); }
-    .diff-body h3 { font-size: 0.95rem; color: var(--white); margin-bottom: 4px; }
-    .diff-body p { font-size: 0.85rem; color: #777; line-height: 1.6; }
+    .diff-num {
+      flex-shrink: 0;
+      width: 32px; height: 32px;
+      background: rgba(200,146,42,0.12);
+      border: 1px solid rgba(200,146,42,0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .diff-body h3 { font-size: 1rem; color: var(--white); margin-bottom: 5px; }
+    .diff-body p { font-size: 0.88rem; color: #777; line-height: 1.6; }
 
-    /* CASE STUDIES */
+    /* ── CASE STUDIES ─────────────────────────────────────────────── */
     #case-studies {}
     .cs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-    .cs-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 52px 48px; position: relative; overflow: hidden; transition: border-color 0.2s; }
+    .cs-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 52px 48px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
     .cs-card:hover { border-color: rgba(200,146,42,0.5); }
-    .cs-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold-lt)); }
-    .cs-tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.4rem; }
+    .cs-card-wide { grid-column: 1 / -1; }
+    .cs-site-desc {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 1.4rem;
+      font-style: italic;
+    }
+    .cs-visit {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--gold);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 1.8rem;
+      transition: gap 0.2s;
+      text-decoration: none;
+    }
+    .cs-visit:hover { gap: 12px; }
+    .cs-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-lt));
+    }
+    .cs-tag {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.4rem;
+    }
     .cs-card h3 { font-size: 1.55rem; color: var(--white); margin-bottom: 1rem; font-weight: 700; letter-spacing: -0.02em; }
     .cs-card p { font-size: 0.95rem; color: #888; line-height: 1.7; margin-bottom: 1.8rem; }
     .cs-outcomes { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .cs-outcomes li { display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: #aaa; }
-    .cs-outcomes li::before { content: ''; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
-    .cs-coming { background: rgba(200,146,42,0.03); border: 1px dashed rgba(200,146,42,0.2); }
-    .cs-coming::before { background: rgba(200,146,42,0.25); }
-    .cs-coming h3 { color: #555; }
+    .cs-outcomes li {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.88rem; color: #aaa;
+    }
+    .cs-outcomes li::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .cs-coming {
+      background: rgba(200,146,42,0.04);
+      border: 1px dashed rgba(200,146,42,0.25);
+    }
+    .cs-coming::before { background: rgba(200,146,42,0.3); }
+    .cs-coming h3 { color: #666; }
 
-    /* THOUGHT LEADERSHIP */
-    #thought-leadership { background: var(--dark); }
-    .tl-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    .tl-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 36px 32px; transition: border-color 0.2s; }
-    .tl-card:hover { border-color: rgba(200,146,42,0.4); }
-    .tl-tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
-    .tl-card h3 { font-size: 1.02rem; color: var(--white); margin-bottom: 0.8rem; line-height: 1.45; }
-    .tl-card p { font-size: 0.88rem; color: #777; line-height: 1.65; margin-bottom: 1.4rem; }
-    .tl-link { font-size: 0.82rem; color: var(--gold); font-weight: 600; }
-
-    /* CAREERS */
-    #careers {}
+    /* ── CAREERS ──────────────────────────────────────────────────── */
+    #careers { background: var(--dark); }
     .careers-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
     .role-list { display: flex; flex-direction: column; gap: 12px; }
-    .role-item { display: flex; justify-content: space-between; align-items: center; padding: 18px 22px; background: var(--card); border: 1px solid var(--border); border-radius: 6px; transition: border-color 0.2s, background 0.2s; cursor: pointer; }
+    .role-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 24px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: border-color 0.2s, background 0.2s;
+      cursor: pointer;
+    }
     .role-item:hover { border-color: var(--gold); background: rgba(200,146,42,0.04); }
-    .role-title { font-size: 0.92rem; font-weight: 600; color: var(--white); }
+    .role-title { font-size: 0.95rem; font-weight: 600; color: var(--white); }
     .role-type { font-size: 0.78rem; color: var(--muted); margin-top: 3px; }
-    .role-arrow { color: var(--gold); }
+    .role-arrow { color: var(--gold); font-size: 1.1rem; }
 
-    /* CTA */
-    #cta { background: var(--dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .cta-inner { text-align: center; padding: 100px 0; }
-    .cta-inner h2 { max-width: 720px; margin: 0 auto 1.4rem; }
-    .cta-inner p { max-width: 520px; margin: 0 auto 2.8rem; font-size: 1.05rem; }
+    /* ── THOUGHT LEADERSHIP ───────────────────────────────────────── */
+    #thought-leadership {}
+    .tl-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .tl-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 36px 32px;
+      transition: border-color 0.2s;
+    }
+    .tl-card:hover { border-color: rgba(200,146,42,0.4); }
+    .tl-tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .tl-card h3 { font-size: 1.05rem; color: var(--white); margin-bottom: 0.8rem; line-height: 1.45; }
+    .tl-card p { font-size: 0.88rem; color: #777; line-height: 1.65; margin-bottom: 1.4rem; }
+    .tl-link { font-size: 0.82rem; color: var(--gold); font-weight: 600; display: flex; align-items: center; gap: 5px; }
+
+    /* ── CTA BANNER ───────────────────────────────────────────────── */
+    #cta {
+      background: var(--dark);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .cta-inner {
+      text-align: center;
+      padding: 100px 0;
+    }
+    .cta-inner h2 { max-width: 700px; margin: 0 auto 1.4rem; }
+    .cta-inner p { max-width: 500px; margin: 0 auto 2.8rem; font-size: 1.05rem; }
     .cta-actions { display: flex; gap: 16px; justify-content: center; }
 
-    /* FOOTER */
-    footer { padding: 72px 0 48px; border-top: 1px solid var(--border); }
-    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+    /* ── FOOTER ───────────────────────────────────────────────────── */
+    footer {
+      padding: 72px 0 48px;
+      border-top: 1px solid var(--border);
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
+    }
     .footer-brand .nav-logo { font-size: 1.5rem; margin-bottom: 1rem; }
     .footer-brand p { font-size: 0.88rem; color: #666; line-height: 1.7; max-width: 300px; }
     .footer-col h4 { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #555; margin-bottom: 1.2rem; }
     .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .footer-col ul a { font-size: 0.88rem; color: #666; transition: color 0.2s; }
     .footer-col ul a:hover { color: var(--white); }
-    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 32px; border-top: 1px solid var(--border); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
     .footer-bottom p { font-size: 0.8rem; color: #444; }
-    .footer-geo { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: #444; }
+    .footer-geo {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.8rem; color: #444;
+    }
 
-    /* RESPONSIVE */
-    @media (max-width: 960px) {
-      .container { padding: 0 20px; }
-      section { padding: 60px 0; }
-      #pillars { padding: 50px 0; }
-      #hero { padding: 120px 0 80px; }
-      .services-grid, .cs-grid, .careers-layout, .approach-layout, .industries-intro, .footer-top, .apr-layout, .ue-layout, .problem-layout { grid-template-columns: 1fr; gap: 28px; }
-      .industry-list, .va-grid { grid-template-columns: repeat(2, 1fr); }
-      .tl-grid, .role-cards, .pillars-grid { grid-template-columns: 1fr; }
-      .hero-stats { gap: 24px; display: grid; grid-template-columns: 1fr 1fr; margin-top: 48px; padding-top: 32px; }
+    /* ── Responsive ───────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .container { padding: 0 24px; }
+      section { padding: 80px 0; }
+      .services-grid,
+      .cs-grid,
+      .careers-layout,
+      .approach-layout,
+      .industries-intro,
+      .footer-top { grid-template-columns: 1fr; gap: 40px; }
+      .industry-list { grid-template-columns: repeat(2, 1fr); }
+      .tl-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 36px; }
       .nav-links { display: none; }
-      .hamburger { display: flex; }
-      .moat-inner { overflow-x: auto; }
-      .moat-table { font-size: 0.78rem; min-width: 480px; }
-      .moat-table th, .moat-table td { padding: 10px 14px; }
-      .section-header { margin-bottom: 40px; }
-      .service-card { padding: 32px 28px; }
-      .service-icon { top: 28px; right: 28px; }
-      .cs-card { padding: 36px 28px; }
-      .pillar-card { padding: 32px 24px; }
-      .problem-right { padding: 28px; }
-      .ue-visual { padding: 28px; }
-      .founding-story { padding: 24px; }
-      .footer-top { gap: 32px; }
-      .cta-inner { padding: 60px 0; }
-      h1 { font-size: clamp(2rem, 8vw, 3.5rem); }
-      .hero-sub { font-size: 1rem; }
-      .stat-num { font-size: 1.8rem; }
     }
     @media (max-width: 520px) {
-      .container { padding: 0 16px; }
-      section { padding: 48px 0; }
-      #hero { padding: 100px 0 60px; }
-      .industry-list, .va-grid, .role-cards { grid-template-columns: 1fr; }
-      .hero-stats { grid-template-columns: 1fr 1fr; gap: 20px; }
-      .cta-actions, .hero-actions { flex-direction: column; align-items: stretch; }
-      .btn-primary, .btn-secondary { justify-content: center; }
-      .services-grid { gap: 1px; }
-      .footer-top { grid-template-columns: 1fr; }
-      .vg-item { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .industry-list { grid-template-columns: 1fr; }
+      .cta-actions { flex-direction: column; align-items: center; }
+      .hero-actions { flex-direction: column; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
+  <!-- ── NAV ── -->
   <nav>
     <div class="nav-inner">
       <a href="#" class="nav-logo">Ret<span>eann</span></a>
       <ul class="nav-links">
         <li><a href="#services">Services</a></li>
-        <li><a href="#ai-per-role">AI Per Role</a></li>
-        <li><a href="#unit-economics">Unit Economics</a></li>
+        <li><a href="#industries">Industries</a></li>
         <li><a href="#case-studies">Case Studies</a></li>
         <li><a href="#careers">Careers</a></li>
-        <li><a href="#cta" class="nav-cta">Work With Us</a></li>
+        <li><a href="mailto:info@reteann.com" class="nav-cta">Work With Us</a></li>
       </ul>
-      <button class="hamburger" id="hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
     </div>
   </nav>
-  <div class="mobile-menu" id="mobile-menu">
-    <a href="#services">Services</a>
-    <a href="#ai-per-role">AI Per Role</a>
-    <a href="#unit-economics">Unit Economics</a>
-    <a href="#case-studies">Case Studies</a>
-    <a href="#careers">Careers</a>
-    <a href="#cta" style="color:var(--gold);font-weight:700;">Work With Us →</a>
-  </div>
 
-  <!-- HERO -->
+  <!-- ── HERO ── -->
   <section id="hero">
     <div class="hero-grid"></div>
     <div class="hero-glow"></div>
     <div class="container">
-      <div class="hero-tag">AI Strategy · Adoption · Economics · Africa</div>
-      <h1>We don't just give<br />companies AI. We make<br />sure it <em>actually works.</em></h1>
+      <div class="hero-tag">AI Transformation Consultancy · Africa</div>
+      <h1>We reinvent Africa's<br /><em>legacy businesses</em><br />for the AI era.</h1>
       <p class="hero-sub">
-        Reteann is Africa's AI operations partner — helping legacy businesses build the
-        right strategy, ensure their people actually adopt it, and measure exactly what
-        it's worth. From the 1890 model to the AI era.
+        From digital foundations to full AI-native rebuilds — Reteann is the
+        strategic partner African enterprises trust to transform decades of legacy into
+        competitive advantage.
       </p>
       <div class="hero-actions">
-        <a href="#cta" class="btn-primary">Start Your Transformation →</a>
-        <a href="#problem" class="btn-secondary">See The Problem We Solve</a>
+        <a href="mailto:info@reteann.com" class="btn-primary">Book a Scoping Call →</a>
+        <a href="#case-studies" class="btn-secondary">View Case Studies</a>
       </div>
       <div class="hero-stats">
         <div class="stat-item">
@@ -376,16 +498,16 @@
           <div class="stat-label">Years of legacy systems we modernise</div>
         </div>
         <div class="stat-item">
-          <div class="stat-num">3 Layers</div>
-          <div class="stat-label">Strategy · Adoption · Economics</div>
-        </div>
-        <div class="stat-item">
           <div class="stat-num">Pan-African</div>
-          <div class="stat-label">Nigeria, Kenya &amp; beyond</div>
+          <div class="stat-label">Reach — Nigeria, Kenya &amp; beyond</div>
         </div>
         <div class="stat-item">
-          <div class="stat-num">Cost Per<br />Outcome</div>
-          <div class="stat-label">How we measure AI value</div>
+          <div class="stat-num">4 Tiers</div>
+          <div class="stat-label">End-to-end transformation capability</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">AI-Native</div>
+          <div class="stat-label">Strategy-first methodology</div>
         </div>
       </div>
     </div>
@@ -393,139 +515,52 @@
 
   <div class="divider"></div>
 
-  <!-- THREE PILLARS -->
-  <section id="pillars">
-    <div class="container">
-      <div class="pillars-label">
-        <p>The Reteann System — Three layers that compound</p>
-      </div>
-      <div class="pillars-grid">
-        <div class="pillar-card">
-          <div class="pillar-num">Pillar One</div>
-          <div class="pillar-icon">📐</div>
-          <h3>AI Strategy</h3>
-          <p>The 1890 model for Africa. Legacy system analysis, AI deployment roadmaps, and the thinking that precedes every successful transformation.</p>
-          <div class="pillar-ref">Modelled on 8090 (formerly 1890)</div>
-        </div>
-        <div class="pillar-card">
-          <div class="pillar-num">Pillar Two</div>
-          <div class="pillar-icon">👤</div>
-          <h3>AI Adoption</h3>
-          <p>Role-specific AI usage guides that ensure employees across every function actually use the tools — and get measurable value from them.</p>
-          <div class="pillar-ref">AI Use Per Role Framework</div>
-        </div>
-        <div class="pillar-card">
-          <div class="pillar-num">Pillar Three</div>
-          <div class="pillar-icon">📊</div>
-          <h3>AI Economics</h3>
-          <p>Cost per outcome visibility across every role, workflow, and project. Know exactly what your AI spend is generating — and where it's leaking.</p>
-          <div class="pillar-ref">Unit Economics Model</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- PROBLEM STATEMENT -->
-  <section id="problem">
-    <div class="container">
-      <div class="problem-layout">
-        <div class="problem-left">
-          <span class="eyebrow">The Problem</span>
-          <h2>Companies are adopting AI.<br /><em>Almost none of them know if it's working.</em></h2>
-          <p>Organisations across Africa are buying AI tools, rolling them out to teams, and hoping for the best. The result: expensive spend with no visibility into outcomes, adoption, or return.</p>
-          <div class="problem-cards">
-            <div class="problem-card">
-              <div class="problem-card-x">✕</div>
-              <div>
-                <strong>They don't know who is actually using AI effectively</strong>
-                <p>Tools are deployed. Licences are paid. But usage is invisible — and most employees revert to old workflows within weeks.</p>
-              </div>
-            </div>
-            <div class="problem-card">
-              <div class="problem-card-x">✕</div>
-              <div>
-                <strong>They can't connect AI usage to business outcomes</strong>
-                <p>No visibility into cost per task, cost per workflow, or cost per outcome. AI spend is a black box.</p>
-              </div>
-            </div>
-            <div class="problem-card">
-              <div class="problem-card-x">✕</div>
-              <div>
-                <strong>They don't know if AI is profitable at all</strong>
-                <p>Token costs, subscriptions, and compute spend are rising. Without a tracking model, organisations are flying blind.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="problem-right">
-          <div class="problem-right-label">The Visibility Gap — Before Reteann</div>
-          <div class="visibility-gap">
-            <div class="vg-item">
-              <div class="vg-question">Who in my team is using AI effectively?</div>
-              <div class="vg-status vg-unknown">Unknown</div>
-            </div>
-            <div class="vg-item">
-              <div class="vg-question">What is my cost per AI-assisted task?</div>
-              <div class="vg-status vg-unknown">Unknown</div>
-            </div>
-            <div class="vg-item">
-              <div class="vg-question">Which workflows are generating ROI?</div>
-              <div class="vg-status vg-unknown">Unknown</div>
-            </div>
-            <div class="vg-item">
-              <div class="vg-question">Where is my AI budget leaking?</div>
-              <div class="vg-status vg-unknown">Unknown</div>
-            </div>
-            <div class="vg-item">
-              <div class="vg-question">Is AI profitable for my business?</div>
-              <div class="vg-status vg-unknown">Unknown</div>
-            </div>
-          </div>
-          <div class="problem-right-footer">Reteann turns every one of these into a measurable answer. →</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- SERVICES -->
+  <!-- ── SERVICES ── -->
   <section id="services">
     <div class="container">
       <div class="section-header">
-        <span class="eyebrow">Consulting Services</span>
-        <h2>Transformation built in tiers. Depth that compounds.</h2>
-        <p>
-          Most firms stop at digital presence. Reteann's ambition is Tier 3 and Tier 4 —
-          where genuine transformation happens and the competitive moat is widest.
-        </p>
+        <span class="eyebrow">What We Do</span>
       </div>
       <div class="services-grid">
         <div class="service-card">
           <div class="service-icon">🌐</div>
           <div class="tier-badge">Tier 1</div>
           <h3>Digital Foundation</h3>
-          <p>Web presence, domain setup, hosting, GitHub-based deployment, and basic online infrastructure. The essential starting point every legacy business needs.</p>
+          <p>
+            Web presence, domain setup, hosting, GitHub-based deployment, and basic
+            online infrastructure. The essential starting point every legacy business
+            needs before anything else can scale.
+          </p>
         </div>
         <div class="service-card">
           <div class="service-icon">🤖</div>
           <div class="tier-badge">Tier 2</div>
           <h3>AI Integration</h3>
-          <p>WhatsApp Business integration, agentic social media management, and AI-powered customer engagement. Your business becomes always-on and intelligent.</p>
+          <p>
+            WhatsApp Business integration, agentic social media management, and
+            AI-powered customer engagement. Your business becomes always-on,
+            responsive, and intelligent.
+          </p>
         </div>
         <div class="service-card">
           <div class="service-icon">📐</div>
           <div class="tier-badge">Tier 3</div>
           <h3>Strategic Transformation</h3>
-          <p>Full AI strategy documents, deployment roadmaps, legacy systems analysis, and modernisation plans. The thinking that precedes meaningful change.</p>
+          <p>
+            Full AI strategy documents, technology deployment roadmaps, legacy systems
+            analysis, and modernisation plans. The thinking and planning that precedes
+            meaningful change.
+          </p>
         </div>
         <div class="service-card">
           <div class="service-icon">⚙️</div>
           <div class="tier-badge">Tier 4</div>
           <h3>AI-Native Rebuild</h3>
-          <p>Rebuilding core business systems — operations, vendor management, customer platforms — from the ground up with AI-native architecture.</p>
+          <p>
+            Rebuilding core business systems — operations, vendor management, customer
+            platforms — from the ground up with AI-native architecture. This is the
+            full reinvention.
+          </p>
         </div>
       </div>
     </div>
@@ -533,330 +568,36 @@
 
   <div class="divider"></div>
 
-  <!-- AI PER ROLE -->
-  <section id="ai-per-role">
-    <div class="container">
-      <div class="apr-layout">
-        <div class="apr-left">
-          <div class="apr-pill">Pillar Two · Adoption</div>
-          <div class="apr-section-header">
-            <span class="eyebrow">AI Use Per Role</span>
-            <h2>Access is not adoption.<br />We bridge the gap.</h2>
-            <p>
-              Most companies buy AI tools and assume their teams will figure it out. They
-              don't. Reteann's AI Use Per Role framework maps AI usage to specific employee
-              roles — creating practical "how to use AI in your role" guides that drive
-              real adoption and measurable cost-per-outcome visibility across every
-              function.
-            </p>
-          </div>
-          <div class="apr-targets">
-            <div class="apr-target">
-              <div class="apr-target-icon">🔒</div>
-              <div>
-                <strong>Limited Access Companies</strong>
-                <p>Only a few employees have AI tools. We define who should use what, and how — maximising cost-per-outcome from limited licences.</p>
-              </div>
-            </div>
-            <div class="apr-target">
-              <div class="apr-target-icon">📉</div>
-              <div>
-                <strong>Full Rollout, Low Adoption</strong>
-                <p>AI tools deployed company-wide but barely used. We build the structured enablement layer that turns access into measurable habit.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <p style="font-size:0.78rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#555; margin-bottom:16px;">Role-Specific AI Guides — Cost Per Outcome Tracked</p>
-          <div class="role-cards">
-            <div class="role-card">
-              <div class="role-card-icon">💼</div>
-              <h3>Sales &amp; Business Dev</h3>
-              <p>Prospect research, proposal drafting, follow-up automation, CRM enrichment.</p>
-              <div class="role-card-cpo">Cost per lead qualified →</div>
-            </div>
-            <div class="role-card">
-              <div class="role-card-icon">⚖️</div>
-              <h3>Legal &amp; Compliance</h3>
-              <p>Contract review, regulatory monitoring, document summarisation, risk flagging.</p>
-              <div class="role-card-cpo">Cost per contract reviewed →</div>
-            </div>
-            <div class="role-card">
-              <div class="role-card-icon">📣</div>
-              <h3>Marketing &amp; Comms</h3>
-              <p>Content creation, campaign ideation, social management, brand alignment.</p>
-              <div class="role-card-cpo">Cost per campaign launched →</div>
-            </div>
-            <div class="role-card">
-              <div class="role-card-icon">🔧</div>
-              <h3>Operations</h3>
-              <p>Process documentation, vendor communication, scheduling, exception handling.</p>
-              <div class="role-card-cpo">Cost per workflow automated →</div>
-            </div>
-            <div class="role-card">
-              <div class="role-card-icon">💰</div>
-              <h3>Finance &amp; Accounting</h3>
-              <p>Report generation, anomaly detection, budget commentary, audit prep.</p>
-              <div class="role-card-cpo">Cost per report generated →</div>
-            </div>
-            <div class="role-card">
-              <div class="role-card-icon">🏗️</div>
-              <h3>Leadership &amp; Strategy</h3>
-              <p>Market analysis, board reporting, competitive intelligence, synthesis.</p>
-              <div class="role-card-cpo">Cost per strategic output →</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- UNIT ECONOMICS -->
-  <section id="unit-economics">
-    <div class="container">
-      <div class="ue-layout">
-        <div>
-          <div class="apr-pill">Pillar Three · Economics</div>
-          <div class="section-header" style="margin-bottom: 0;">
-            <span class="eyebrow">Unit Economics</span>
-            <h2>From opaque spend to measurable value.</h2>
-            <p>
-              AI without accountability is a cost centre. Reteann's Unit Economics model
-              gives your organisation complete cost-per-outcome visibility — tracking what
-              every AI interaction costs against the revenue and output it generates,
-              across every role and workflow.
-            </p>
-          </div>
-          <div class="ue-system">
-            <div class="ue-step">
-              <div class="ue-step-left">
-                <div class="ue-step-num">1</div>
-                <div class="ue-step-line"></div>
-              </div>
-              <div class="ue-step-body">
-                <h3>Capture AI Usage</h3>
-                <p>Track who is using AI, in which role, for which task — with full telemetry across tools and platforms.</p>
-              </div>
-            </div>
-            <div class="ue-step">
-              <div class="ue-step-left">
-                <div class="ue-step-num">2</div>
-                <div class="ue-step-line"></div>
-              </div>
-              <div class="ue-step-body">
-                <h3>Map to Workflows</h3>
-                <p>Allocate usage to specific workflows — Sales, Ops, Marketing, Finance — so costs are attributed correctly.</p>
-              </div>
-            </div>
-            <div class="ue-step">
-              <div class="ue-step-left">
-                <div class="ue-step-num">3</div>
-                <div class="ue-step-line"></div>
-              </div>
-              <div class="ue-step-body">
-                <h3>Assign Value &amp; Revenue</h3>
-                <p>Connect each workflow to the business output it generates — leads, contracts, reports, customer interactions.</p>
-              </div>
-            </div>
-            <div class="ue-step">
-              <div class="ue-step-left">
-                <div class="ue-step-num">4</div>
-                <div class="ue-step-line"></div>
-              </div>
-              <div class="ue-step-body">
-                <h3>Analyse ROI &amp; Margin</h3>
-                <p>Calculate cost per outcome, ROI per workflow, and net margin — automated, not manual.</p>
-              </div>
-            </div>
-            <div class="ue-step">
-              <div class="ue-step-left">
-                <div class="ue-step-num">5</div>
-              </div>
-              <div class="ue-step-body">
-                <h3>Optimise — Scale or Cut</h3>
-                <p>Clear decisions: what to invest in more, what to reduce, and where AI is genuinely creating value.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="ue-visual">
-          <div class="ue-visual-label">Cost Per Outcome Dashboard</div>
-          <div class="ue-metrics">
-            <div class="ue-metric">
-              <div class="ue-metric-label">Cost per lead qualified (Sales)</div>
-              <div class="ue-metric-value green">₦ 1,200</div>
-            </div>
-            <div class="ue-metric">
-              <div class="ue-metric-label">Cost per campaign launched (Marketing)</div>
-              <div class="ue-metric-value green">₦ 8,400</div>
-            </div>
-            <div class="ue-metric">
-              <div class="ue-metric-label">Cost per report generated (Finance)</div>
-              <div class="ue-metric-value green">₦ 3,100</div>
-            </div>
-            <div class="ue-metric">
-              <div class="ue-metric-label">Cost per contract reviewed (Legal)</div>
-              <div class="ue-metric-value red">₦ 28,000 ↑</div>
-            </div>
-            <div class="ue-metric">
-              <div class="ue-metric-label">Total AI spend this month</div>
-              <div class="ue-metric-value">₦ 840,000</div>
-            </div>
-            <div class="ue-metric">
-              <div class="ue-metric-label">Revenue generated via AI workflows</div>
-              <div class="ue-metric-value green">₦ 6,200,000</div>
-            </div>
-            <div class="ue-metric">
-              <div class="ue-metric-label">Overall AI ROI</div>
-              <div class="ue-metric-value green">638%</div>
-            </div>
-          </div>
-          <div class="ue-footer">⚠ Legal workflows flagged — cost per outcome 3× above benchmark. Optimisation recommended.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- VALUE-ADD ANALYSIS -->
-  <section id="value-add">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Value-Add Analysis</span>
-        <h2>We tell you where your AI is working — and where it isn't.</h2>
-        <p>A standalone advisory service giving clients a clear audit of their AI usage: what's profitable, where spend is leaking, and where to invest next.</p>
-      </div>
-      <div class="va-grid">
-        <div class="va-card">
-          <div class="va-card-num">01</div>
-          <h3>AI Profitability Audit</h3>
-          <p>We analyse your current AI tool usage against business outputs — identifying which workflows generate real cost-per-outcome value and which are expensive noise.</p>
-        </div>
-        <div class="va-card">
-          <div class="va-card-num">02</div>
-          <h3>Overspend Identification</h3>
-          <p>Unused licences, redundant tools, over-provisioned compute. We surface where your AI budget is leaking and give you a clear plan to reclaim it.</p>
-        </div>
-        <div class="va-card">
-          <div class="va-card-num">03</div>
-          <h3>Investment Roadmap</h3>
-          <p>A prioritised roadmap of where to invest next in AI tooling, training, or infrastructure to maximise cost-per-outcome across every role and workflow.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- MOAT -->
-  <section id="moat">
-    <div class="container">
-      <div class="moat-inner">
-        <div class="moat-header">
-          <span class="eyebrow">Why Reteann</span>
-          <h2>This is our moat.</h2>
-          <p>Pure tools track costs. Pure consultants build strategies. Reteann is the only partner that sits across all three layers — and the only one built for the African market.</p>
-        </div>
-        <table class="moat-table">
-          <thead>
-            <tr>
-              <th>Capability</th>
-              <th>Generic Consultant</th>
-              <th>Pure AI Tool (e.g. Runrate)</th>
-              <th class="col-reteann">Reteann</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>AI Strategy &amp; Roadmapping</td>
-              <td><span class="moat-check">✓</span></td>
-              <td><span class="moat-x">—</span></td>
-              <td class="moat-reteann"><span class="moat-check">✓</span></td>
-            </tr>
-            <tr>
-              <td>Role-Level AI Adoption &amp; Enablement</td>
-              <td><span class="moat-x">—</span></td>
-              <td><span class="moat-x">—</span></td>
-              <td class="moat-reteann"><span class="moat-check">✓</span></td>
-            </tr>
-            <tr>
-              <td>Cost Per Outcome Tracking</td>
-              <td><span class="moat-x">—</span></td>
-              <td><span class="moat-check">✓</span></td>
-              <td class="moat-reteann"><span class="moat-check">✓</span></td>
-            </tr>
-            <tr>
-              <td>Workflow Design &amp; Implementation</td>
-              <td><span class="moat-x">—</span></td>
-              <td><span class="moat-x">—</span></td>
-              <td class="moat-reteann"><span class="moat-check">✓</span></td>
-            </tr>
-            <tr>
-              <td>Legacy Systems &amp; AI-Native Rebuild</td>
-              <td><span class="moat-x">—</span></td>
-              <td><span class="moat-x">—</span></td>
-              <td class="moat-reteann"><span class="moat-check">✓</span></td>
-            </tr>
-            <tr>
-              <td>Africa-First Market Knowledge</td>
-              <td><span class="moat-x">—</span></td>
-              <td><span class="moat-x">—</span></td>
-              <td class="moat-reteann"><span class="moat-check">✓</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- INDUSTRIES -->
+  <!-- ── INDUSTRIES ── -->
   <section id="industries">
     <div class="container">
-      <div class="industries-intro">
-        <div class="section-header">
-          <span class="eyebrow">Industries We Serve</span>
-          <h2>Where legacy runs deepest, opportunity is largest.</h2>
-        </div>
-        <div>
-          <p style="font-size:1rem; color:#888;">We focus on African industries with high legacy system density — sectors where profitable, operational businesses have never undergone meaningful technological transformation.</p>
-        </div>
+      <div class="section-header">
+        <span class="eyebrow">Industries We Serve</span>
       </div>
       <div class="industry-list">
         <div class="industry-item">
           <div class="industry-icon">✈️</div>
           <h3>Aviation</h3>
-          <p>Complex, interconnected software ecosystems ripe for AI-native reinvention.</p>
         </div>
         <div class="industry-item">
           <div class="industry-icon">🏭</div>
           <h3>Manufacturing</h3>
-          <p>Decades-old ERP systems and operational workflows ready for modernisation.</p>
         </div>
         <div class="industry-item">
           <div class="industry-icon">🚚</div>
           <h3>Logistics</h3>
-          <p>Route optimisation, vendor management, and customer platforms reimagined.</p>
         </div>
         <div class="industry-item">
           <div class="industry-icon">🏦</div>
           <h3>Financial Services</h3>
-          <p>Legacy banking and insurance infrastructure transformed for the AI era.</p>
         </div>
         <div class="industry-item">
           <div class="industry-icon">🔧</div>
           <h3>Engineering &amp; Construction</h3>
-          <p>Project management, procurement, and client systems rebuilt intelligently.</p>
         </div>
         <div class="industry-item">
           <div class="industry-icon">🛒</div>
           <h3>Retail &amp; Distribution</h3>
-          <p>Supply chain, inventory, and customer engagement transformed end-to-end.</p>
         </div>
       </div>
     </div>
@@ -864,86 +605,7 @@
 
   <div class="divider"></div>
 
-  <!-- APPROACH / FOUNDING NARRATIVE -->
-  <section id="approach">
-    <div class="container">
-      <div class="approach-layout">
-        <div>
-          <div class="section-header" style="margin-bottom:36px;">
-            <span class="eyebrow">Our Approach</span>
-            <h2>Strategy first. Adoption always. Economics at every step.</h2>
-            <p>AI implementation without a strategy is expensive noise. Without adoption, it's wasted. Without economics, it's invisible. Reteann runs all three simultaneously.</p>
-          </div>
-          <div class="founding-story">
-            <div class="founding-story-label">The Bedrock Narrative — Why This Moment Matters</div>
-            <div>
-              <div class="timeline-item">
-                <div class="timeline-year">1819</div>
-                <div class="timeline-dot"><div class="timeline-dot-circle"></div><div class="timeline-dot-line"></div></div>
-                <div class="timeline-text"><strong>The Industrial Revolution</strong>Businesses built on steam and iron. The firms that adapted their operations survived for generations. Those that didn't were erased.</div>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-year">1890</div>
-                <div class="timeline-dot"><div class="timeline-dot-circle"></div><div class="timeline-dot-line"></div></div>
-                <div class="timeline-text"><strong>The Technology Revolution</strong>Electricity, communications, early computing. New firms were built on entirely new rails — and legacy businesses had to reinvent or die.</div>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-year">8090</div>
-                <div class="timeline-dot"><div class="timeline-dot-circle"></div><div class="timeline-dot-line"></div></div>
-                <div class="timeline-text"><strong>The AI Revolution — The Global Benchmark</strong>An AI-native platform rebuilding legacy software for large enterprises worldwide. Associated with EY. The standard Reteann is built to match — for Africa.</div>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-year">Today</div>
-                <div class="timeline-dot"><div class="timeline-dot-circle"></div></div>
-                <div class="timeline-text"><strong>Reteann — Africa's AI Operations Partner</strong>The same transformation model, built for African enterprises running 20–60 year old systems. Strategy + Adoption + Economics. The full stack.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="diff-list">
-          <div class="diff-item">
-            <div class="diff-num">01</div>
-            <div class="diff-body">
-              <h3>Africa-First Focus</h3>
-              <p>Deep understanding of local market dynamics, regulatory environments, and client realities that no global firm can match.</p>
-            </div>
-          </div>
-          <div class="diff-item">
-            <div class="diff-num">02</div>
-            <div class="diff-body">
-              <h3>Strategy Before Software</h3>
-              <p>The thinking and planning that precedes every engagement. Strategy without execution is theory; execution without strategy is expensive chaos.</p>
-            </div>
-          </div>
-          <div class="diff-item">
-            <div class="diff-num">03</div>
-            <div class="diff-body">
-              <h3>Adoption, Not Just Access</h3>
-              <p>Role-specific enablement ensures AI tools are actually used — not just purchased. We track adoption and cost-per-outcome from day one.</p>
-            </div>
-          </div>
-          <div class="diff-item">
-            <div class="diff-num">04</div>
-            <div class="diff-body">
-              <h3>AI as an Operational System</h3>
-              <p>We don't treat AI as a feature. We help clients manage it as an operational resource — with the economics, governance, and accountability that requires.</p>
-            </div>
-          </div>
-          <div class="diff-item">
-            <div class="diff-num">05</div>
-            <div class="diff-body">
-              <h3>Credibility Through Live Work</h3>
-              <p>Ofeimu Engineering and Gratia AI are live engagements — not case study templates. This is the model running in production.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- CASE STUDIES -->
+  <!-- ── CASE STUDIES ── -->
   <section id="case-studies">
     <div class="container">
       <div class="section-header">
@@ -952,135 +614,84 @@
         <p>Real engagements. Real transformation. These are the anchor case studies that define what Reteann does.</p>
       </div>
       <div class="cs-grid">
+
         <div class="cs-card">
           <div class="cs-tag">Engineering · Nigeria · Ongoing</div>
           <h3>Ofeimu Engineering</h3>
-          <p>A business that operated successfully for over 25 years with no meaningful digital transformation. Reteann is delivering a full AI-native reinvention — starting from web presence and moving into deep AI integration across operations, vendor management, and customer platforms.</p>
-          <ul class="cs-outcomes">
-            <li>Digital foundation built from scratch — web, domain, hosting, deployment pipeline</li>
-            <li>AI strategy document and deployment roadmap in development</li>
-            <li>AI Use Per Role framework being scoped across their teams</li>
-            <li>Unit Economics model to track cost per outcome across workflows</li>
-          </ul>
+          <p class="cs-site-desc">A full-service engineering firm based in Nigeria, delivering structural, civil, and construction solutions across the country.</p>
+          <a href="https://www.ofeimuengineering.com" class="cs-visit" target="_blank" rel="noopener noreferrer">Visit Website →</a>
         </div>
+
         <div class="cs-card">
-          <div class="cs-tag">AI Platform · Active Engagement</div>
-          <h3>Gratia AI</h3>
-          <p>An active AI platform engagement demonstrating Reteann's capacity to work across multiple client types simultaneously — from legacy enterprise transformation to emerging AI-native ventures.</p>
-          <ul class="cs-outcomes">
-            <li>Strategic advisory and AI deployment planning</li>
-            <li>Unit Economics model scoped for their project portfolio</li>
-            <li>Cost-per-outcome tracking being implemented across client workflows</li>
-            <li>Project scope and roadmap under active development</li>
-          </ul>
+          <div class="cs-tag">Travel · Active Engagement</div>
+          <h3>Gratia Travel</h3>
+          <p class="cs-site-desc">A travel and experiences platform built for bliss — curating premium trips, hotels, and adventures for those who want to travel well.</p>
+          <a href="https://gratia-travel-bliss-hub.lovable.app/" class="cs-visit" target="_blank" rel="noopener noreferrer">Visit Website →</a>
         </div>
-        <div class="cs-card cs-coming">
-          <div class="cs-tag">Coming Soon</div>
-          <h3>Next Case Study</h3>
-          <p>Reteann is actively expanding its client base across financial services, logistics, and manufacturing. The next anchor case study is in formation.</p>
-          <ul class="cs-outcomes">
-            <li>Targeting high legacy system density sectors</li>
-            <li>Pan-African expansion — Kenya and beyond</li>
-          </ul>
+
+        <div class="cs-card">
+          <h3>Stawpby</h3>
+          <p class="cs-site-desc">A postpartum care marketplace connecting new parents with culturally matched, experienced moms — for in-home support, video sessions, and free community Q&amp;A. Now live across the US and Canada.</p>
+          <a href="https://www.stawpby.com" class="cs-visit" target="_blank" rel="noopener noreferrer">Visit Website →</a>
         </div>
-        <div class="cs-card cs-coming" style="display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;min-height:300px;">
-          <div style="font-size:2.4rem;margin-bottom:16px;opacity:0.2;">+</div>
-          <h3 style="color:#555;font-size:1.1rem;margin-bottom:8px;">Your business could be here.</h3>
-          <p style="font-size:0.88rem;color:#555;margin-bottom:24px;">We're selectively onboarding new clients across Africa.</p>
-          <a href="#cta" class="btn-primary" style="font-size:0.85rem;padding:12px 22px;">Start a Conversation</a>
+
+        <div class="cs-card">
+          <h3>Learn with Zidi</h3>
+          <p class="cs-site-desc">An online tutoring platform pairing learners in the diaspora with expert tutors for Yoruba, Igbo, and more — one-on-one sessions, your timezone, your schedule.</p>
+          <a href="https://www.learnwithzidi.com" class="cs-visit" target="_blank" rel="noopener noreferrer">Visit Website →</a>
         </div>
+
       </div>
     </div>
   </section>
 
   <div class="divider"></div>
 
-  <!-- THOUGHT LEADERSHIP -->
-  <section id="thought-leadership">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Insights</span>
-        <h2>Original thinking on AI operations in African enterprises.</h2>
-        <p>Reteann publishes perspectives on AI strategy, adoption, and economics across the continent.</p>
-      </div>
-      <div class="tl-grid">
-        <div class="tl-card">
-          <div class="tl-tag">Adoption</div>
-          <h3>Buying AI Tools Is Not the Same as Adopting AI</h3>
-          <p>Access without enablement is waste. Why role-specific AI guides are the missing layer in every company's AI rollout.</p>
-          <div class="tl-link">Read More →</div>
-        </div>
-        <div class="tl-card">
-          <div class="tl-tag">Unit Economics</div>
-          <h3>Do You Know Your Cost Per AI Outcome? Most Don't.</h3>
-          <p>Token costs, subscriptions, and compute spend are rising. Without a cost-per-outcome model, you're flying blind.</p>
-          <div class="tl-link">Read More →</div>
-        </div>
-        <div class="tl-card">
-          <div class="tl-tag">Strategy</div>
-          <h3>Why African Enterprises Are Sitting on the Biggest AI Opportunity in the World</h3>
-          <p>Decades of deferred modernisation have created a unique window. Legacy density is an advantage — if you move now.</p>
-          <div class="tl-link">Read More →</div>
-        </div>
-        <div class="tl-card">
-          <div class="tl-tag">AI Operations</div>
-          <h3>Managing AI as an Operational System, Not a Feature</h3>
-          <p>The companies winning with AI aren't treating it as a tool. They're running it as an operational resource — with governance, tracking, and economics.</p>
-          <div class="tl-link">Read More →</div>
-        </div>
-        <div class="tl-card">
-          <div class="tl-tag">Operations</div>
-          <h3>From Legacy to AI-Native: The Ofeimu Engineering Story</h3>
-          <p>A 25-year-old business, no digital infrastructure, and a full AI-native reinvention. What we built and why.</p>
-          <div class="tl-link">Read More →</div>
-        </div>
-        <div class="tl-card">
-          <div class="tl-tag">Enablement</div>
-          <h3>What a Good AI Use Per Role Framework Actually Looks Like</h3>
-          <p>Role-specific enablement done right — what we build, how we measure adoption, and why it changes everything.</p>
-          <div class="tl-link">Read More →</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- CAREERS -->
+  <!-- ── CAREERS ── -->
   <section id="careers">
     <div class="container">
       <div class="careers-layout">
         <div>
           <span class="eyebrow">Careers</span>
-          <h2>Build Africa's AI operations layer.</h2>
-          <p style="margin-top:1rem;margin-bottom:2rem;">We are building a team of the best AI strategy, adoption, and engineering talent on the continent. If you want to work at the intersection of legacy industry and AI operations — Reteann is where you belong.</p>
-          <a href="mailto:info@reteann.com" class="btn-secondary">Send Applications to info@reteann.com →</a>
+          <p style="margin-top:1rem; margin-bottom:2rem;">
+            We are building a team of the best AI strategy and software engineering
+            talent on the continent. If you want to work on problems that matter —
+            at the intersection of legacy industry and cutting-edge AI — Reteann is
+            where you belong.
+          </p>
+          <a href="mailto:info@reteann.com" class="btn-secondary">Email us at info@reteann.com</a>
         </div>
         <div>
           <div class="role-list">
             <div class="role-item">
-              <div><div class="role-title">AI Strategy Consultant</div><div class="role-type">Full-time · Pan-African (Remote-first)</div></div>
-              <div class="role-arrow">→</div>
+              <div>
+                <div class="role-title">AI Strategy Consultant</div>
+                <div class="role-type">Full-time · Pan-African (Remote-first)</div>
+              </div>
             </div>
             <div class="role-item">
-              <div><div class="role-title">AI Enablement Specialist</div><div class="role-type">Full-time · AI Use Per Role · Client-facing</div></div>
-              <div class="role-arrow">→</div>
+              <div>
+                <div class="role-title">Software Engineer (AI-Native)</div>
+                <div class="role-type">Full-time · Lagos / Nairobi / Remote</div>
+              </div>
             </div>
             <div class="role-item">
-              <div><div class="role-title">AI Economics Analyst</div><div class="role-type">Full-time · Unit Economics Model</div></div>
-              <div class="role-arrow">→</div>
+              <div>
+                <div class="role-title">Legacy Systems Analyst</div>
+                <div class="role-type">Full-time · Nigeria</div>
+              </div>
             </div>
             <div class="role-item">
-              <div><div class="role-title">Software Engineer (AI-Native)</div><div class="role-type">Full-time · Lagos / Nairobi / Remote</div></div>
-              <div class="role-arrow">→</div>
+              <div>
+                <div class="role-title">Engagement Manager</div>
+                <div class="role-type">Full-time · Client-facing</div>
+              </div>
             </div>
             <div class="role-item">
-              <div><div class="role-title">Legacy Systems Analyst</div><div class="role-type">Full-time · Nigeria</div></div>
-              <div class="role-arrow">→</div>
-            </div>
-            <div class="role-item">
-              <div><div class="role-title">Business Development (Africa)</div><div class="role-type">Full-time · Pan-African</div></div>
-              <div class="role-arrow">→</div>
+              <div>
+                <div class="role-title">Business Development (Africa)</div>
+                <div class="role-type">Full-time · Pan-African</div>
+              </div>
             </div>
           </div>
         </div>
@@ -1088,30 +699,13 @@
     </div>
   </section>
 
-  <div class="divider"></div>
-
-  <!-- CTA -->
-  <section id="cta">
-    <div class="container">
-      <div class="cta-inner">
-        <span class="eyebrow">Work With Us</span>
-        <h2>Your transformation starts with a conversation.</h2>
-        <p>We're selectively onboarding clients across Africa. Whether you need an AI strategy, a role adoption framework, cost-per-outcome tracking, or a full system rebuild — we want to hear from you.</p>
-        <div class="cta-actions">
-          <a href="mailto:hello@reteann.com" class="btn-primary">Get In Touch →</a>
-          <a href="#services" class="btn-secondary">Explore Our Services</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
+  <!-- ── FOOTER ── -->
   <footer>
     <div class="container">
       <div class="footer-top">
         <div class="footer-brand">
           <div class="nav-logo">Ret<span style="color:var(--gold)">eann</span></div>
-          <p>Africa's AI operations partner — strategy, adoption, and economics for legacy businesses across the continent.</p>
+          <p>Africa's leading AI-native transformation consultancy. Helping legacy businesses develop and deploy cutting-edge AI strategies across the continent.</p>
         </div>
         <div class="footer-col">
           <h4>Services</h4>
@@ -1123,57 +717,32 @@
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Products</h4>
+          <h4>Company</h4>
           <ul>
-            <li><a href="#ai-per-role">AI Use Per Role</a></li>
-            <li><a href="#unit-economics">Unit Economics</a></li>
-            <li><a href="#value-add">Value-Add Analysis</a></li>
-            <li><a href="#moat">Why Reteann</a></li>
+            <li><a href="#case-studies">Case Studies</a></li>
+            <li><a href="#careers">Careers</a></li>
+            <li><a href="mailto:info@reteann.com">Contact</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Company</h4>
+          <h4>Industries</h4>
           <ul>
-            <li><a href="#approach">Our Approach</a></li>
-            <li><a href="#case-studies">Case Studies</a></li>
-            <li><a href="#thought-leadership">Insights</a></li>
-            <li><a href="#careers">Careers</a></li>
+            <li><a href="#industries">Aviation</a></li>
+            <li><a href="#industries">Manufacturing</a></li>
+            <li><a href="#industries">Logistics</a></li>
+            <li><a href="#industries">Financial Services</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
         <p>© 2025 Reteann. All rights reserved.</p>
-        <div class="footer-geo"><span>📍</span><span>Headquartered in Nigeria · Operating Pan-Africa</span></div>
+        <div class="footer-geo">
+          <span>📍</span>
+          <span>Headquartered in Nigeria · Operating Pan-Africa</span>
+        </div>
       </div>
     </div>
   </footer>
 
-  <script>
-    // Active nav highlight on scroll
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
-    const mobileLinks = document.querySelectorAll('.mobile-menu a[href^="#"]');
-    window.addEventListener('scroll', () => {
-      let current = '';
-      sections.forEach(section => {
-        if (window.scrollY >= section.offsetTop - 100) current = section.getAttribute('id');
-      });
-      [...navLinks, ...mobileLinks].forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === '#' + current) link.classList.add('active');
-      });
-    });
-
-    // Hamburger menu toggle
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobile-menu');
-    hamburger.addEventListener('click', () => {
-      mobileMenu.classList.toggle('open');
-    });
-    // Close mobile menu when a link is clicked
-    mobileLinks.forEach(link => {
-      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
-    });
-  </script>
 </body>
 </html>
