@@ -458,6 +458,97 @@
       .cta-actions { flex-direction: column; align-items: center; }
       .hero-actions { flex-direction: column; }
     }
+
+    /* ── MODALS ───────────────────────────────────────────────── */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(6px);
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 48px;
+      max-width: 580px;
+      width: 100%;
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-close {
+      position: absolute; top: 20px; right: 24px;
+      background: none; border: none;
+      color: var(--muted); font-size: 1.3rem;
+      cursor: pointer; line-height: 1; padding: 4px;
+      transition: color 0.2s;
+    }
+    .modal-close:hover { color: var(--white); }
+    .modal-eyebrow {
+      display: inline-block;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(200,146,42,0.35);
+      padding: 4px 10px; border-radius: 3px;
+      margin-bottom: 1.2rem;
+    }
+    .modal h3 {
+      font-size: 1.5rem; color: var(--white);
+      font-weight: 700; letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+    .modal-sub { font-size: 0.9rem; color: var(--muted); margin-bottom: 2rem; line-height: 1.65; }
+    .form-group { margin-bottom: 1.4rem; }
+    .form-group label {
+      display: block; font-size: 0.8rem;
+      font-weight: 600; color: #aaa;
+      margin-bottom: 0.5rem; letter-spacing: 0.04em;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      background: var(--black);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 16px;
+      color: var(--white);
+      font-size: 0.9rem;
+      font-family: var(--font);
+      transition: border-color 0.2s;
+      resize: vertical;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus { outline: none; border-color: rgba(200,146,42,0.5); }
+    .form-group textarea { min-height: 90px; }
+    .jd-section { margin-bottom: 1.8rem; }
+    .jd-section h4 {
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.9rem;
+    }
+    .jd-section p { font-size: 0.93rem; color: #aaa; line-height: 1.7; }
+    .jd-section ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .jd-section ul li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.9rem; color: #aaa; line-height: 1.6;
+    }
+    .jd-section ul li::before {
+      content: ''; width: 5px; height: 5px;
+      background: var(--gold); border-radius: 50%;
+      flex-shrink: 0; margin-top: 9px;
+    }
+    .role-item { cursor: pointer; }
+    .role-view { font-size: 0.8rem; color: var(--gold); font-weight: 600; white-space: nowrap; }
+    @media (max-width: 600px) {
+      .modal { padding: 32px 24px; }
+    }
   </style>
 </head>
 <body>
@@ -471,7 +562,7 @@
         <li><a href="#industries">Industries</a></li>
         <li><a href="#case-studies">Case Studies</a></li>
         <li><a href="#careers">Careers</a></li>
-        <li><a href="mailto:info@reteann.com" class="nav-cta">Say Hello</a></li>
+        <li><a href="#" class="nav-cta" onclick="openModal('modal-scoping'); return false;">Book a Scoping Call</a></li>
       </ul>
     </div>
   </nav>
@@ -487,25 +578,7 @@
         Tell us where you are. We'll help figure out where you could go — and build it with you.
       </p>
       <div class="hero-actions">
-        <a href="mailto:info@reteann.com" class="btn-secondary">Say hello → info@reteann.com</a>
-      </div>
-      <div class="hero-stats">
-        <div class="stat-item">
-          <div class="stat-num">20–60</div>
-          <div class="stat-label">Years of legacy we love to untangle</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num">Pan-African</div>
-          <div class="stat-label">Reach — Nigeria, Kenya &amp; growing</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num">4 Tiers</div>
-          <div class="stat-label">Ways we can show up for you</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num">AI-Native</div>
-          <div class="stat-label">Thinking built into everything we do</div>
-        </div>
+        <a href="#" class="btn-primary" onclick="openModal('modal-scoping'); return false;">Book a Scoping Call →</a>
       </div>
     </div>
   </section>
@@ -643,43 +716,32 @@
       <div class="careers-layout">
         <div>
           <span class="eyebrow">Careers</span>
-          <p style="margin-top:1rem; margin-bottom:2rem;">
-            We are a small team with big ambitions. If you love AI, care about Africa,
-            and want to work on things that actually matter — pull up a chair.
+          <p style="margin-top:1rem;">
+            We're hiring engineers. Email us at <a href="mailto:info@reteann.co" style="color:var(--gold);">info@reteann.co</a>
           </p>
-          <a href="mailto:info@reteann.com" class="btn-secondary">Email us at info@reteann.com</a>
         </div>
         <div>
           <div class="role-list">
-            <div class="role-item">
+            <div class="role-item" onclick="openModal('modal-jd-ai-engineer')">
               <div>
-                <div class="role-title">AI Strategy Consultant</div>
-                <div class="role-type">Full-time · Pan-African (Remote-first)</div>
+                <div class="role-title">AI Forward Engineer</div>
+                <div class="role-type">Full-time · Remote-first</div>
               </div>
+              <div class="role-view">View JD</div>
             </div>
-            <div class="role-item">
+            <div class="role-item" onclick="openModal('modal-jd-software-engineer')">
               <div>
-                <div class="role-title">Software Engineer (AI-Native)</div>
-                <div class="role-type">Full-time · Lagos / Nairobi / Remote</div>
+                <div class="role-title">Software Engineer</div>
+                <div class="role-type">Full-time · Remote</div>
               </div>
+              <div class="role-view">View JD</div>
             </div>
-            <div class="role-item">
+            <div class="role-item" onclick="openModal('modal-jd-intern')">
               <div>
-                <div class="role-title">Legacy Systems Analyst</div>
-                <div class="role-type">Full-time · Nigeria</div>
+                <div class="role-title">Software Engineering Intern</div>
+                <div class="role-type">Internship · Remote</div>
               </div>
-            </div>
-            <div class="role-item">
-              <div>
-                <div class="role-title">Engagement Manager</div>
-                <div class="role-type">Full-time · Client-facing</div>
-              </div>
-            </div>
-            <div class="role-item">
-              <div>
-                <div class="role-title">Business Development (Africa)</div>
-                <div class="role-type">Full-time · Pan-African</div>
-              </div>
+              <div class="role-view">View JD</div>
             </div>
           </div>
         </div>
@@ -693,7 +755,7 @@
       <div class="footer-top">
         <div class="footer-brand">
           <div class="nav-logo">Ret<span style="color:var(--gold)">eann</span></div>
-          <p>We partner with businesses across Africa to build, grow, and transform — using AI as the engine and curiosity as the fuel.</p>
+          <p>We partner with businesses across Africa to build, grow, and transform their businesses using AI.</p>
         </div>
         <div class="footer-col">
           <h4>Services</h4>
@@ -731,6 +793,179 @@
       </div>
     </div>
   </footer>
+
+  <!-- ── SCOPING CALL MODAL ── -->
+  <div class="modal-overlay" id="modal-scoping">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('modal-scoping')">✕</button>
+      <div class="modal-eyebrow">30 Minutes · Free</div>
+      <h3>Book a Scoping Call</h3>
+      <p class="modal-sub">Tell us what you're building. We'll figure out if and how we can help.</p>
+      <div class="form-group">
+        <label>YOUR NAME</label>
+        <input type="text" id="scoping-name" placeholder="e.g. Peter Oke" />
+      </div>
+      <div class="form-group">
+        <label>EMAIL ADDRESS</label>
+        <input type="email" id="scoping-email" placeholder="you@company.com" />
+      </div>
+      <div class="form-group">
+        <label>YOUR COMPANY & WHAT IT DOES</label>
+        <textarea id="scoping-company" placeholder="e.g. We're a logistics company in Lagos, 15 years in business, moving goods across Nigeria..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>WHAT DO YOU NEED HELP WITH?</label>
+        <textarea id="scoping-project" placeholder="e.g. We want to automate our dispatch system and add AI-powered customer updates via WhatsApp..."></textarea>
+      </div>
+      <button onclick="submitScoping()" class="btn-primary" style="width:100%;justify-content:center;border:none;cursor:pointer;">Send Request →</button>
+    </div>
+  </div>
+
+  <!-- ── AI FORWARD ENGINEER JD ── -->
+  <div class="modal-overlay" id="modal-jd-ai-engineer">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('modal-jd-ai-engineer')">✕</button>
+      <div class="modal-eyebrow">Full-time · Remote-first</div>
+      <h3>AI Forward Engineer</h3>
+      <p class="modal-sub">You'll figure out how to make AI actually useful for businesses that have never used it. Not demos — real systems, in production.</p>
+      <div class="jd-section">
+        <h4>What You'll Do</h4>
+        <ul>
+          <li>Build AI integrations into client products — WhatsApp bots, content generators, workflow automation</li>
+          <li>Work with LLMs, retrieval systems, and agent frameworks to solve real business problems</li>
+          <li>Go from prototype to production without losing velocity</li>
+          <li>Work directly with clients to understand their workflow and find the right AI fit</li>
+        </ul>
+      </div>
+      <div class="jd-section">
+        <h4>What We're Looking For</h4>
+        <ul>
+          <li>Strong Python and hands-on experience with LLM APIs (OpenAI, Anthropic, etc.)</li>
+          <li>Comfort with prompt engineering, RAG pipelines, and AI agent frameworks</li>
+          <li>You've shipped AI tools or products that real users have used</li>
+          <li>You move fast, think independently, and finish what you start</li>
+        </ul>
+      </div>
+      <div class="jd-section">
+        <h4>Nice to Have</h4>
+        <ul>
+          <li>Full-stack experience (React, Node.js) — helpful for AI-integrated web products</li>
+          <li>Interest in African markets and the specific problems businesses here face</li>
+        </ul>
+      </div>
+      <a href="mailto:info@reteann.com?subject=Application — AI Forward Engineer" class="btn-primary" style="display:inline-flex;margin-top:0.5rem;">Apply Now →</a>
+    </div>
+  </div>
+
+  <!-- ── SOFTWARE ENGINEER JD ── -->
+  <div class="modal-overlay" id="modal-jd-software-engineer">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('modal-jd-software-engineer')">✕</button>
+      <div class="modal-eyebrow">Full-time · Remote</div>
+      <h3>Software Engineer</h3>
+      <p class="modal-sub">You'll build the web products and platforms that power our client engagements — from clean marketing sites to fully functional applications.</p>
+      <div class="jd-section">
+        <h4>What You'll Do</h4>
+        <ul>
+          <li>Design and build web applications for clients across Africa</li>
+          <li>Set up and own hosting, deployment pipelines, and infrastructure</li>
+          <li>Integrate AI features into web products alongside our AI team</li>
+          <li>Own your work end-to-end — from brief to deployment</li>
+        </ul>
+      </div>
+      <div class="jd-section">
+        <h4>What We're Looking For</h4>
+        <ul>
+          <li>Strong JavaScript/TypeScript and React skills</li>
+          <li>Node.js, databases, REST APIs — you know how the stack fits together</li>
+          <li>Git, GitHub, CI/CD — you know how to ship cleanly and consistently</li>
+          <li>You have strong opinions about how things should be built, and you can defend them</li>
+        </ul>
+      </div>
+      <div class="jd-section">
+        <h4>Nice to Have</h4>
+        <ul>
+          <li>Next.js or similar modern frameworks</li>
+          <li>Eye for design — you don't need a designer to make something look good</li>
+          <li>Experience with Vercel, AWS, or similar deployment platforms</li>
+        </ul>
+      </div>
+      <a href="mailto:info@reteann.com?subject=Application — Software Engineer" class="btn-primary" style="display:inline-flex;margin-top:0.5rem;">Apply Now →</a>
+    </div>
+  </div>
+
+  <!-- ── SOFTWARE ENGINEERING INTERN JD ── -->
+  <div class="modal-overlay" id="modal-jd-intern">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('modal-jd-intern')">✕</button>
+      <div class="modal-eyebrow">Internship · Remote</div>
+      <h3>Software Engineering Intern</h3>
+      <p class="modal-sub">You'll work on real client projects, write real code, and ship real products. This isn't a coffee-fetching internship.</p>
+      <div class="jd-section">
+        <h4>What You'll Do</h4>
+        <ul>
+          <li>Support the engineering team on active client projects</li>
+          <li>Write and ship features to production — real work, real deadlines</li>
+          <li>Learn how a modern, AI-first software shop operates in practice</li>
+          <li>Pick up real skills in web development and AI integration</li>
+        </ul>
+      </div>
+      <div class="jd-section">
+        <h4>What We're Looking For</h4>
+        <ul>
+          <li>Basic coding skills in JavaScript or Python — enough to get started</li>
+          <li>Curiosity and drive — you want to build, not just observe</li>
+          <li>You take feedback well, ask good questions, and iterate fast</li>
+          <li>Based in Africa (strongly preferred)</li>
+        </ul>
+      </div>
+      <div class="jd-section">
+        <h4>Nice to Have</h4>
+        <ul>
+          <li>Any project you've built — personal, academic, it doesn't matter, just real</li>
+          <li>Interest in how AI is changing how software gets built</li>
+        </ul>
+      </div>
+      <a href="mailto:info@reteann.com?subject=Application — Software Engineering Intern" class="btn-primary" style="display:inline-flex;margin-top:0.5rem;">Apply Now →</a>
+    </div>
+  </div>
+
+  <script>
+    function openModal(id) {
+      document.getElementById(id).classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.querySelectorAll('.modal-overlay').forEach(function(overlay) {
+      overlay.addEventListener('click', function(e) {
+        if (e.target === this) {
+          this.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+    function submitScoping() {
+      var name    = document.getElementById('scoping-name').value.trim();
+      var email   = document.getElementById('scoping-email').value.trim();
+      var company = document.getElementById('scoping-company').value.trim();
+      var project = document.getElementById('scoping-project').value.trim();
+      if (!name || !email) {
+        alert('Please enter your name and email address.');
+        return;
+      }
+      var subject = encodeURIComponent('Scoping Call — ' + name);
+      var body    = encodeURIComponent(
+        'Name: ' + name + '\nEmail: ' + email +
+        '\n\nCompany & What We Do:\n' + (company || '—') +
+        '\n\nWhat We Need Help With:\n' + (project || '—')
+      );
+      window.location.href = 'mailto:info@reteann.com?subject=' + subject + '&body=' + body;
+      closeModal('modal-scoping');
+    }
+  </script>
 
 </body>
 </html>
